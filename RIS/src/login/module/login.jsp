@@ -1,7 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 	<HTML>
 	<HEAD>
 	<TITLE>Your Login Result</TITLE>
@@ -15,7 +11,7 @@
 	<%@ page import="java.sql.*" %>
 	<% 
 
-	if(request.getParameter("bSubmit") != null){
+	if(request.getParameter("Submit") != null){
 		//get the user input from the login page
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
@@ -98,7 +94,7 @@
 		out.println("<form method=post action=login.jsp>");
 		out.println("UserName: <input type=text name=USERID maxlength=20><br>");
 		out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
-		out.println("<input type=submit name=bSubmit value=Submit>");
+		out.println("<input type=submit name=Submit value=Submit>");
 		out.println("</form>");
 	}      
 
