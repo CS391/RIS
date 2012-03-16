@@ -1,4 +1,4 @@
-cp ~/git/RIS/RIS/src/ ~/catalina/webapps/391Project/
+cp -r ~/git/RIS/RIS/src/ ~/catalina/webapps/391Project/
 starttomcat &
 #test if tomcat is running
 var1=http://
