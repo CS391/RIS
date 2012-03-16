@@ -50,7 +50,7 @@
 
 		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = "select PWD from login where id = '"+userName+"'";
+		String sql = "select PASSWORD from USERS where USER_NAME = '"+userName+"'";
 		out.println(sql);
 
 		try{
@@ -68,6 +68,7 @@
 		while(rset != null && rset.next())
 			truepwd = (rset.getString(1)).trim();
 
+		out.println("<hr>"+truepwd+"</hr>");
 
 
 		//display the result
