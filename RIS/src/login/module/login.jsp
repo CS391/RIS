@@ -37,7 +37,7 @@
 
 		try{
 			//establish the connection 
-			conn = DriverManager.getConnection(dbstring,"your_user_id","your_pass_word");
+			conn = DriverManager.getConnection(dbstring,"jletourn","JL3492916");
 			conn.setAutoCommit(false);
 		}
 
