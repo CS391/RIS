@@ -1,5 +1,5 @@
 cp -r ~/git/RIS/RIS/src/ ~/catalina/webapps/391Project/
-terminal -x starttomcat
+terminal -x starttomcat &
 #test if tomcat is running
 var1=http://
 var2=$(uname --nodename)
