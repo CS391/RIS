@@ -8,7 +8,7 @@
 <body>
 <!--  
 	Tables: users, persons, family_doctor 
-	system administrator only, "a"
+	system administrator only, "a" h
 -->
 Please select a user to manage:
 <br>
