@@ -6,6 +6,10 @@
 </head>
 
 <body>
+<!--  
+	Tables: users, persons, family_doctor 
+	system administrator only, "a"
+-->
 Hello I'm a body.
 </body>
 
