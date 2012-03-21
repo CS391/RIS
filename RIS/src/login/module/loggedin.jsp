@@ -10,6 +10,7 @@
 	@author  Hong-Yu Zhang, University of Alberta
 	-->
 	<%@ page import="java.sql.*" %>
+	<%@ page import="connect.java" %>
 	<% 
 
 	if(request.getParameter("Submit") != null){
