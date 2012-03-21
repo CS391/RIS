@@ -6,7 +6,7 @@
 
 <BODY>
 <!--This is the login page-->
-<H1><CENTER>Radiology Information System</CENTER></H1>
+<CENTER><H1>Radiology Information System</H1></CENTER>
 
 <FORM NAME="LoginForm" ACTION="loggedin.jsp" METHOD="post" >
 
