@@ -1,3 +1,4 @@
+<%@ include file="/src/header/module/header.jsp" %>
 	<HTML>
 	<HEAD>
 	<TITLE>Your Login Result</TITLE>
