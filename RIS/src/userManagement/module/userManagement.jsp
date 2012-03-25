@@ -13,7 +13,7 @@
 Please select a user to manage:
 <br>
 <%@ page import="java.sql.*" %>
-<%@ page import="src.javaFunctions.connect" %>
+<%@ page import="connect" %>
 <% 
 
 	if (request.getParameter ("Submit") == null)
