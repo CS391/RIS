@@ -1,3 +1,5 @@
+package connect;
+
 public class connect
 {
 	public void connect (Connection con)
