@@ -1,9 +1,18 @@
 package connect;
 
+import java.sql.*;
+
 public class connect
 {
-	public void connect (Connection con)
+	public connect ()
 	{
+		
+	}
+	
+	public static Connection dbConnect ()
+	{
+		Connection conn = null;
+		
 		String driverName = "oracle.jdbc.driver.OracleDriver";
 		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
 		try
@@ -14,7 +23,7 @@ public class connect
 		}
 		catch (Exception ex)
 		{
-			out.println ("<hr>" + ex.getMessage () + "<hr>");
+			System.out.println ("<hr>" + ex.getMessage () + "<hr>");
 		}
 
 		try
@@ -25,7 +34,8 @@ public class connect
 		}
 		catch (Exception ex)
 		{
-			out.println ("<hr>" + ex.getMessage () + "<hr>");
+			System.out.println ("<hr>" + ex.getMessage () + "<hr>");
 		}
+		return conn;
 	}
 }

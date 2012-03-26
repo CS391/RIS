@@ -13,13 +13,11 @@
 Please select a user to manage:
 <br>
 <%@ page import="java.sql.*" %>
-<%@ page import="connect" %>
 <% 
 
 	if (request.getParameter ("Submit") == null)
 	{
-		Connection conn = null;
-		
+		Connection conn = connect.connect.dbConnect ();
 		
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -59,6 +57,7 @@ Please select a user to manage:
 	}
 	else
 	{
+		Connection conn = connect.connect.dbConnect ();
 		String userName = request.getParameter ("USER").trim ();
 		out.println ("Found: " + userName);
 	}
