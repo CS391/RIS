@@ -60,6 +60,28 @@ Please select a user to manage:
 		Connection conn = connect.connect.dbConnect ();
 		String userName = request.getParameter ("USER").trim ();
 		out.println ("Found: " + userName);
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = "select * from users where user=" + userName;
+		try
+		{
+			stmt = conn.createStatement ();
+			rset = stmt.executeQuery (sql);
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
+		
+		try
+		{
+			conn.close();
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
 	}
 %>
 </body>
