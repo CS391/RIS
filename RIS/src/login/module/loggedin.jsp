@@ -2,22 +2,17 @@
 	<HEAD>
 	<TITLE>Your Login Result</TITLE>
 	</HEAD>
-
 	<BODY>
-	<!--A simple example to demonstrate how to use JSP to 
-	connect and query a database. 
-	@author  Hong-Yu Zhang, University of Alberta
-	-->
 	<%@ page import="java.sql.*" %>
 	<% 
+	
+	final String DB_USER_NAME="jletourn";
+	final String DB_PASSWORD="JL3492916";
 
 	if(request.getParameter("Submit") != null){
 		//get the user input from the login page
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
-		out.println("<p>Your input User Name is "+userName+"</p>");
-		out.println("<p>Your input password is "+passwd+"</p>");
-
 
 		//establish the connection to the underlying database
 
@@ -32,61 +27,54 @@
 		}
 
 		catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
+			out.println("<hr>Database Driver did not load.<hr>");
 		}
 
 		try{
 			//establish the connection 
-			conn = DriverManager.getConnection(dbstring,"jletourn","JL3492916");
+			conn = DriverManager.getConnection(dbstring,DB_USER_NAME,DB_PASSWORD);
 			conn.setAutoCommit(false);
 		}
 
 		catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
+			out.println("<hr>Error connecting to the database<hr>");
 
 		}
 
 		//select the user table from the underlying db and validate the user name and password
 
-		Statement stmt = null;
-		ResultSet rset = null;
-		String sql = "select PASSWORD from USERS where USER_NAME = '"+userName+"'";
-		out.println(sql);
-
 		try{
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(sql);
+			PreparedStatement prepUserName = conn.prepareStatement("SELECT * FROM USERS WHERE USER_NAME = ? AND PASSWORD = ?");
+			prepUserName.setString(1,userName);
+			prepUserName.setString(2,passwd);
+			ResultSet userSet = prepUserName.executeQuery();
+			
+			String truepwd = "";
+			
+			if(userSet.next()){
+			truepwd = userSet.getString(2);
+			}
+
+
+			//display the result
+			if(passwd.equals(truepwd))
+				out.println("<p><b>Your Login is Successful!</b></p>");
+
+			else
+				out.println("<p><b>Either your userName or Your password is inValid!</b></p>");
 		}
 
 		catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
+			out.println("<hr>Error processing your login.<hr>");
 
 		}
-
-		String truepwd = "";
-
-		while(rset != null && rset.next())
-			truepwd = (rset.getString(1)).trim();
-
-		out.println("<hr>"+truepwd+"</hr>");
-
-
-		//display the result
-
-		if(passwd.equals(truepwd))
-			out.println("<p><b>Your Login is Successful!</b></p>");
-
-		else
-			out.println("<p><b>Either your userName or Your password is inValid!</b></p>");
-
-
 
 		try{
 			conn.close();
 		}
 
 		catch(Exception ex){
-			out.println("<hr>" + ex.getMessage() + "<hr>");
+			out.println("<hr>Error closing the connection to the database<hr>");
 		}
 
 	}
@@ -97,7 +85,7 @@
 		out.println("Password: <input type=password name=PASSWD maxlength=20><br>");
 		out.println("<input type=submit name=Submit value=Submit>");
 		out.println("</form>");
-	}      
+	} 
 
 	%>
 
