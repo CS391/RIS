@@ -9,8 +9,10 @@
 	<%@ page import="java.util.Date"%>
 	<%@ page import="java.text.SimpleDateFormat"%>
 
-		<CENTER><H1>Report Specification Page</H1></CENTER>
-		
+	<CENTER>
+		<H1>Report Specification Page</H1>
+	</CENTER>
+
 	<%
     Connection conn = connect.connect.dbConnect();
     Statement stmt = null;
@@ -27,7 +29,7 @@
            out.println("<hr>" + ex.getMessage() + "<hr>");
        }
        %>
-       
+
 	<FORM NAME="Select" ACTION="reportGenerated.jsp" METHOD="post"">
 		<H5>Report Diagnosis</H5>
 		<select name="DIAGNOSIS">
@@ -37,12 +39,13 @@
            diagnosis = rset.getString(1).trim();
            
            out.println("<option value=\"" + diagnosis + "\">" + diagnosis + "</option>");
+		}
        rset.beforeFirst();
        
 	%>
 
-		</select>
-			<br>
+		</select> 
+		<br>
 		<H5>Report Start Time</H5>
 		<select name="STARTDATE">
 			<%
@@ -62,8 +65,8 @@
 		</select> 
 		<br>
 		<H5>Report End Time</H5>
-		
-		 <select name="ENDDATE">
+
+		<select name="ENDDATE">
 			<%
     out.print("<br>Please indicate the end time of the report: <br>");
        String endDate = "";
@@ -79,18 +82,16 @@
 	%>
 		</select> 
 		<br> 
-		<br>
+		<br> 
 		<INPUT TYPE="submit" NAME="SUBMIT" VALUE="Select">
 	</FORM>
 	<%   
 
-   }
 try{
     conn.close();
   } catch (Exception ex){
       out.println("<hr>" + ex.getMessage() + "<hr>");
   }
-
 
 %>
 </body>
