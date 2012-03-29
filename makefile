@@ -16,5 +16,5 @@ var3=.cs.ualberta.ca:8080/391Project/
 #echo $var1$var2$var3
 sleep 3
 echo "Starting firefox . . ."
-firefox $var1$var2$var3
+firefox $var1$var2$var3 &
 #get website as argument to firefox
