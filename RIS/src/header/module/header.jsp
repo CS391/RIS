@@ -48,7 +48,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"uploading_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"Uploading_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
