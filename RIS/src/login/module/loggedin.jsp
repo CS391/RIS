@@ -1,3 +1,4 @@
+	<%@ include file="/src/header/module/header.jsp" %>
 	<HTML>
 	<HEAD>
 	<TITLE>Your Login Result</TITLE>
@@ -14,56 +15,56 @@
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
 
-		//establish the connection to the underlying database
-
-		Connection conn = null;
-		String driverName = "oracle.jdbc.driver.OracleDriver";
-		String dbstring = "jdbc:oracle:thin:@gwynne.cs.ualberta.ca:1521:CRS";
-
-		try{
-			//load and register the driver
-			Class drvClass = Class.forName(driverName); 
-			DriverManager.registerDriver((Driver) drvClass.newInstance());
-		}
-
-		catch(Exception ex){
-			out.println("<hr>Database Driver did not load.<hr>");
-		}
-
-		try{
-			//establish the connection 
-			conn = DriverManager.getConnection(dbstring,DB_USER_NAME,DB_PASSWORD);
-			conn.setAutoCommit(false);
-		}
-
-		catch(Exception ex){
-			out.println("<hr>Error connecting to the database<hr>");
-
-		}
+		Connection conn = connect.connect.dbConnect ();
 
 		//select the user table from the underlying db and validate the user name and password
 
 		try{
-			PreparedStatement prepUserName = conn.prepareStatement("SELECT * FROM USERS WHERE USER_NAME = ? AND PASSWORD = ?");
+			PreparedStatement prepUserName = conn.prepareStatement("SELECT * FROM USERS WHERE USER_NAME = ?");
 			prepUserName.setString(1,userName);
-			prepUserName.setString(2,passwd);
-			ResultSet userSet = prepUserName.executeQuery();
+			ResultSet userPass = prepUserName.executeQuery();
 			
 			String truepwd = "";
 			
-			if(userSet.next()){
-			truepwd = userSet.getString(2);
+			if(userPass.next()){
+			truepwd = userPass.getString(2);
+			Cookie cookiePassword = new Cookie("password", truepwd);
+			Cookie cookieClass = new Cookie("class", userPass.getString(3));
+			response.addCookie(cookiePassword);
+			response.addCookie(cookieClass);
 			}
+			
+			PreparedStatement prepUser = conn.prepareStatement("SELECT * FROM PERSONS WHERE USER_NAME = ?");
+			prepUser.setString(1,userName);
+			ResultSet userSet = prepUser.executeQuery();
 
-
+			while(userSet.next()){
+							
+			Cookie cookieUserName = new Cookie("user_name", userSet.getString(1));
+			Cookie cookieFirstName = new Cookie("first_name", userSet.getString(2));
+			Cookie cookieLastName = new Cookie("last_name", userSet.getString(3));
+			Cookie cookieAddress = new Cookie("address", userSet.getString(4));
+			Cookie cookieEmail = new Cookie("email", userSet.getString(5));
+			Cookie cookiePhone = new Cookie("phone", userSet.getString(6));
+			response.addCookie(cookieUserName);
+			response.addCookie(cookieFirstName);
+			response.addCookie(cookieLastName);
+			response.addCookie(cookieAddress);
+			response.addCookie(cookieEmail);
+			response.addCookie(cookiePhone);
+			
+			}
 			//display the result
-			if(passwd.equals(truepwd))
-				out.println("<p><b>Your Login is Successful!</b></p>");
-
+			if(passwd.equals(truepwd)){
+				Cookie cookieLoggedIn = new Cookie("login", "1");
+				response.addCookie(cookieLoggedIn);
+				response.sendRedirect("/391Project/"); 
+			}
+			
 			else
-				out.println("<p><b>Either your userName or Your password is inValid!</b></p>");
+			response.sendRedirect("/391Project/src/login/module/login.jsp"); 
 		}
-
+		
 		catch(Exception ex){
 			out.println("<hr>Error processing your login.<hr>");
 

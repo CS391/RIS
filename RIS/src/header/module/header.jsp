@@ -5,50 +5,109 @@
     <FORM NAME="Header" METHOD="POST">
         <INPUT TYPE="HIDDEN" NAME="buttonName">
         
-        <input type="button" value="Home" onclick="button7()">
-        <INPUT TYPE="BUTTON" VALUE="User Management" ONCLICK="button2()">
-        <INPUT TYPE="BUTTON" VALUE="Report Generating" ONCLICK="button3()">
-        <INPUT TYPE="BUTTON" VALUE="Uploading" ONCLICK="button4()">
-        <INPUT TYPE="BUTTON" VALUE="Search" ONCLICK="button5()">
-        <INPUT TYPE="BUTTON" VALUE="Data Analysis" ONCLICK="button6()">
-        <INPUT TYPE="BUTTON" VALUE="User Settings" ONCLICK="button8()">
-        
-        <%-- TODO: Check if user is logged in and replace with logout --%>
-        <INPUT TYPE="BUTTON" VALUE="Login" ONCLICK="button1()">
+        <%
+        Cookie cookies[] = request.getCookies();
+        Cookie getcookieUserName = null;
+        Cookie getcookiePassword = null;
+        Cookie getcookieFirstName = null;
+        Cookie getcookieLastName = null;
+        Cookie getcookieClass = null;
+        Cookie getcookieAddress = null;
+        Cookie getcookieEmail = null;
+        Cookie getcookiePhone = null;
+        for(int i=0; i < cookies.length; i++){
+        	
+        	if(cookies[i].getName().equals("user_name")){
+        		getcookieUserName = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("password")){
+        		getcookiePassword = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("first_name")){
+        		getcookieFirstName = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("last_name")){
+        		getcookieLastName = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("class")){
+        		getcookieClass = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("address")){
+        		getcookieAddress = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("email")){
+        		getcookieEmail = cookies[i];
+        	}
+        	if(cookies[i].getName().equals("phone")){
+        		getcookiePhone = cookies[i];
+        	}
+        }
+        String className=null;
+        if(getcookieClass != null){
+        className = getcookieClass.getValue();
+        out.println(className);
+        }
+        if(className == null){
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"uploading_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"Login_button()\">");
+        }
+        else if (className != null){
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"uploading_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");
+        }
+        	
+        	%>
+    
     </FORM>
     <SCRIPT LANGUAGE="JavaScript">
-        function button1()
+        function Login_button()
         {
         	parent.location='/391Project/src/login/module/login.jsp'
         }    
-        function button2()
+        function UM_button()
         {
         	parent.location='/391Project/src/userManagement/module/userManagement.jsp'
         }    
-        function button3()
+        function Report_button()
         {
         	parent.location='/391Project/src/reportGenerating/module/reportGenerating.jsp'
         }    
-        function button4()
+        function Uploading_button()
         {
         	parent.location='/391Project/src/uploading/module/uploading.jsp'
         }    
-        function button5()
+        function Search_button()
         {
         	parent.location='/391Project/src/search/module/search.jsp'
         }    
-        function button6()
+        function DA_button()
         {
         	parent.location='/391Project/src/dataAnalysis/module/dataAnalysis.jsp'
         }
-        function button7()
+        function Home_button()
         {
         	parent.location='/391Project/'
         }
-        function button8()
+        function US_button()
         {
         	parent.location='/391Project/src/login/module/usersettings.jsp'
         }
+        function LogOut_button()
+        {
+        	parent.location='/391Project/src/login/module/logout.jsp'
+        }   
     </SCRIPT>
 </BODY>
 
