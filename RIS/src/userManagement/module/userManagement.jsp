@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat" %>
 <% 
 	if (request.getParameter ("Submit") == null &&
 		request.getParameter("Submit Changes") == null)
@@ -86,6 +86,7 @@
 			dateRegistered = rset.getString (4).trim ();
 			
 			out.println ("<tr>");
+				out.println ("<input type=\"hidden\" name=\"user\" value=\"" + user + "\" />");
 // 				out.println ("<td>User: </td>");
 // 				out.println ("<td>");
 // 					out.println ("<input type=\"text\" name=\"user\" value=\"" + user + "\" />");
@@ -226,7 +227,86 @@
 	else if (request.getParameter ("Submit") == null &&
 			 request.getParameter("Submit Changes") != null)
 	{
-		out.println ("HI!"); // Get parameters and put into db
+		Connection conn = connect.connect.dbConnect ();
+		
+		String user = request.getParameter ("user");
+		
+		String pass = request.getParameter ("pass");
+		String uClass = request.getParameter ("uClass");
+		String date = request.getParameter ("dateRegistered");
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    Date convertedDate = dateFormat.parse(date);      
+	    SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
+	    String formattedDate = finalFormat.format(convertedDate);
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = "update users set password=\'" + pass + "\', " +
+			"class=\'" + uClass + "\', " +
+			"date_registered=\'" + formattedDate + "\' " +
+			"where user_name=\'" + user + "\'";
+		out.println (sql);
+		try
+		{
+			stmt = conn.createStatement ();
+			rset = stmt.executeQuery (sql);
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
+		
+// 		String first = request.getParameter ("first");
+// 		String last = request.getParameter ("last");
+// 		String address = request.getParameter ("address");
+// 		String email = request.getParameter ("email");
+// 		String phone = request.getParameter ("phone");
+		
+// 		stmt = null;
+// 		rset = null;
+// 		sql = "update persons set first_name=\'" + first + "\', " +
+// 			"last_name=\'" + last + "\', " +
+// 			"address=\'" + address + "\', " +
+// 			"email=\'" + email + "\', " + 
+// 			"phone=\'" + phone + "\' " +
+// 			"where user_name=\'" + user + "\'";
+// 		try
+// 		{
+// 			stmt = conn.createStatement ();
+// 			rset = stmt.executeQuery (sql);
+// 		}
+// 		catch (Exception ex)
+// 		{
+// 			out.println ("<hr>" + ex.getMessage () + "<hr>");
+// 		}
+		
+// 		String doctor = request.getParameter ("doctor");
+		
+// 		stmt = null;
+// 		rset = null;
+// 		sql = "update family_doctor set doctor_name=\'" + doctor + "\' " +
+// 			"where patient_name=\'" + user + "\'";
+// 		try
+// 		{
+// 			stmt = conn.createStatement ();
+// 			rset = stmt.executeQuery (sql);
+// 		}
+// 		catch (Exception ex)
+// 		{
+// 			out.println ("<hr>" + ex.getMessage () + "<hr>");
+// 		}
+		
+		out.println ("Information submitted!"); // Get parameters and put into db
+		
+		try
+		{
+			conn.close();
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
 	}
 %>
 </body>
