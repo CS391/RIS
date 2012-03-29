@@ -9,7 +9,8 @@
 <H1><CENTER>User Settings</CENTER></H1>
 
 <%
-if(false){
+classname =  (String)session.getAttribute("class");
+if(classname != null){
 String user_name = getcookieUserName.getValue();
 String first_name = getcookieFirstName.getValue();
 String last_name = getcookieLastName.getValue();

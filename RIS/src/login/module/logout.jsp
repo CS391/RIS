@@ -11,6 +11,7 @@
         	tempCookie.setMaxAge(0);
         	response.addCookie(tempCookie);
         }
+        session.removeAttribute("class");
 		response.sendRedirect("/391Project/"); 
         %>
 </body>

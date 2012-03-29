@@ -42,12 +42,9 @@
         		getcookiePhone = cookies[i];
         	}
         }
-        String className=null;
-        if(getcookieClass != null){
-        className = getcookieClass.getValue();
-        out.println(className);
-        }
-        if(className == null){
+        
+        String classname =  (String)session.getAttribute("class");
+        if(classname == null){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
@@ -57,7 +54,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"Login_button()\">");
         }
-        else if (className != null){
+        else{
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
