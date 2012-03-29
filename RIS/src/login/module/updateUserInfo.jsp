@@ -32,7 +32,8 @@ if(request.getParameter("UPDATE") != null){
 		if(userPass.next()){
 		truepwd = userPass.getString(2);
 		}
-		
+		int update1=0;
+		int update2=0;
 		if(passwd.equals(truepwd)){
 	
 		PreparedStatement UpdateInfo = conn.prepareStatement("UPDATE PERSONS SET FIRST_NAME= ?," +
@@ -43,21 +44,27 @@ if(request.getParameter("UPDATE") != null){
 		UpdateInfo.setString(4,updateEmail);
 		UpdateInfo.setString(5,updatePhone);
 		UpdateInfo.setString(6,userName);
+		update1 = UpdateInfo.executeUpdate();
 		
 		PreparedStatement UpdatePass=null;
-		if(updatePassword.equals(updateRPassword) && updatePassword != null){
+		if(!updatePassword.isEmpty()){
+		if(updatePassword.equals(updateRPassword)){
 		UpdatePass = conn.prepareStatement("UPDATE USERS SET PASSWORD= ? WHERE USER_NAME = ?");
 		UpdatePass.setString(1,updatePassword);
 		UpdatePass.setString(2,userName);
+		update2 = UpdatePass.executeUpdate();
 		}
 		else{
 			out.println("<hr>Your Passwords did not match!</hr>");
 		}
-		if(UpdateInfo.executeUpdate()!=0 && UpdatePass.executeUpdate()!=0){
+		}
+		if(update1 != 0 || update2 !=0){
 		conn.commit();
 		out.println("<hr>Your Information has been changed. Thank You!</hr>");
 		}
-
+		else{
+			out.println("<hr> Error processing your information</hr>");
+		}
 	}
 
 	else{

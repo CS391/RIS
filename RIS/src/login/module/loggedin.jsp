@@ -25,11 +25,13 @@
 			ResultSet userPass = prepUserName.executeQuery();
 			
 			String truepwd = "";
+			classname = "";
 			
 			if(userPass.next()){
 			truepwd = userPass.getString(2);
+			classname = userPass.getString(3);
 			Cookie cookiePassword = new Cookie("password", truepwd);
-			Cookie cookieClass = new Cookie("class", userPass.getString(3));
+			Cookie cookieClass = new Cookie("class", classname);
 			response.addCookie(cookiePassword);
 			response.addCookie(cookieClass);
 			}
@@ -56,8 +58,7 @@
 			}
 			//display the result
 			if(passwd.equals(truepwd)){
-				Cookie cookieLoggedIn = new Cookie("login", "1");
-				response.addCookie(cookieLoggedIn);
+				session.setAttribute("class", classname);
 				response.sendRedirect("/391Project/"); 
 			}
 			
