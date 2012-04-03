@@ -1,4 +1,7 @@
-<%@ include file="/src/header/module/header.jsp" %>
+<%@ include file="/src/header/module/header.jsp"%>
+<%@ page import="java.io.*"%>
+<%@ page import="javax.servlet.*"%>
+
 
 <html>
 <head>
@@ -6,12 +9,8 @@
 </head>
 <body>
 
-
-<%
-
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+	<H1>Upload Local Photo</H1>
+	<%
 
 /** A servlet that reads a GIF file off the local system
  *  and sends it to the client with the appropriate MIME type.
@@ -31,17 +30,11 @@ import javax.servlet.http.*;
  *  &copy; 2000 Marty Hall; may be freely used or adapted.
  */
 
-public class PictureFromFile extends HttpServlet {
 
-  public void doGet(HttpServletRequest request,
-                    HttpServletResponse response)
-      throws ServletException, IOException {
-
-    String gifLocation = "images/window.jpg";
+ String gifLocation = "images/window.jpg";
 
     if ((gifLocation == null) ||
         (gifLocation.length() == 0)) {
-      reportError(response, "Image File Not Specified");
       return;
     }
 
@@ -75,17 +68,9 @@ public class PictureFromFile extends HttpServlet {
 
 
     } catch(IOException ioe) {
-      reportError(response, "Error: " + ioe);
     }
-  }
 
-  public void reportError(HttpServletResponse response,
-                          String message)
-      throws IOException {
-    response.sendError(response.SC_NOT_FOUND,
-                       message);
-  }
-}
+
 %>
 
 </body>
