@@ -1,6 +1,9 @@
 package connect;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class connect
 {
@@ -36,6 +39,25 @@ public class connect
 		{
 			System.out.println ("<hr>" + ex.getMessage () + "<hr>");
 		}
+		
 		return conn;
+	}
+	
+	public static String getDateStringFromDateString (String date)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+		Date convertedDate = new Date ();
+		try
+		{
+			convertedDate = dateFormat.parse (date);
+		}
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			System.out.println ("<hr>" + e.getMessage () + "<hr>");
+		}   
+	    SimpleDateFormat finalFormat = new SimpleDateFormat ("dd-MMM-yy");
+	    
+	    return finalFormat.format (convertedDate);
 	}
 }
