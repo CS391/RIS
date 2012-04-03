@@ -246,7 +246,7 @@
 			"class=\'" + uClass + "\', " +
 			"date_registered=\'" + formattedDate + "\' " +
 			"where user_name=\'" + user + "\'";
-		out.println (sql);
+		//out.println (sql);
 		try
 		{
 			stmt = conn.createStatement ();

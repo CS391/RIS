@@ -64,6 +64,7 @@
 			
 			else
 			response.sendRedirect("/391Project/src/login/module/login.jsp"); 
+			session.setAttribute("wrongPass", "true");
 		}
 		
 		catch(Exception ex){
