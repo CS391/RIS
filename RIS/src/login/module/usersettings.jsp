@@ -32,7 +32,7 @@ String phone = getcookiePhone.getValue();
 <TD><INPUT TYPE="password" NAME="RNEWPASSWD" VALUE=""></TD>
 </TR>
 <TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>Current Password:</I></B></TD>
+<TD><B><I>Current Password:</B><B style="color:red;">  *</B></TD>
 <TD><INPUT TYPE="password" NAME="OLDPASSWD" VALUE=""></TD>
 </TR>
 <TR VALIGN=TOP ALIGN=LEFT>
@@ -61,6 +61,8 @@ String phone = getcookiePhone.getValue();
 </TABLE>
 <INPUT TYPE="submit" NAME="UPDATE" VALUE="Update">
 </FORM>
+
+<P style="color:red;"> * Required</P>
 <HR>
 <%
 }

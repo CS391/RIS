@@ -15,6 +15,7 @@
         Cookie getcookieAddress = null;
         Cookie getcookieEmail = null;
         Cookie getcookiePhone = null;
+        if(cookies != null){
         for(int i=0; i < cookies.length; i++){
         	
         	if(cookies[i].getName().equals("user_name")){
@@ -42,8 +43,8 @@
         		getcookiePhone = cookies[i];
         	}
         }
-        
-        String classname =  (String)session.getAttribute("class");
+        }
+        String classname =  (String) session.getAttribute("class");
         if(classname == null){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
@@ -54,15 +55,33 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"Login_button()\">");
         }
-        else{
+        else if(classname.equals("a")){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"Uploading_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");
+        }
+        else if(classname.equals("p")){
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");
+        }
+        else if(classname.equals("d")){
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");
+        }
+        else if(classname.equals("r")){
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"Uploading_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"LogOut_button()\">");
         }
         	
         	%>

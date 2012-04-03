@@ -13,6 +13,16 @@
 <P>To login successfully, you need to submit a valid user-id and password</P>
 <TABLE>
 <TR VALIGN=TOP ALIGN=LEFT>
+<%
+String wrongPass = (String) session.getAttribute("wrongPass");
+if(wrongPass != null){
+if(wrongPass.equals("true")){
+	out.println("<B style=\"color:red;\"><I>Wrong Password or User Id</I></B>");
+}
+}
+
+%>
+
 <TD><B><I>Userid:</I></B></TD>
 <TD><INPUT TYPE="text" NAME="USERID" VALUE="userid"><BR></TD>
 </TR>

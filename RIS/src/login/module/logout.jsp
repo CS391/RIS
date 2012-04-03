@@ -12,6 +12,7 @@
         	response.addCookie(tempCookie);
         }
         session.removeAttribute("class");
+        session.removeAttribute("wrongPass");
 		response.sendRedirect("/391Project/"); 
         %>
 </body>
