@@ -23,29 +23,58 @@
     Connection conn = connect.connect.dbConnect();
     Statement stmt = null;
     ResultSet rset = null;
-
-       String recordQuery = "SELECT record_id,  FROM radiology_record";
-       try{
-           stmt = conn.createStatement(
-                   ResultSet.TYPE_SCROLL_INSENSITIVE,
-                   ResultSet.CONCUR_READ_ONLY);
-           rset = stmt.executeQuery(infoQuery);
-       } 
-       catch (Exception ex){
-           out.println("<hr>" + ex.getMessage() + "<hr>");
-       }
        %>
 
 	<FORM NAME="Select" ACTION="uploadFromLocal.jsp" METHOD="post"">
-
-		<select name="TEST">
-						<%
-       String testing = "";
-           out.println("<option value=\"" + testing + "\">" + testing + "</option>");
-
+	<H4>Enter Record ID</H4>
+	<br>
+	<input name="RECORDID" type="text" size="25" value="Enter Rocord ID">
+	<input type="reset" value="Reset"><br>
+	<br>
+		<H4>Enter Patient_name</H4>
+	<br>
+	<input name="PATIENTNAME" type="text" size="25" value="Enter Patient Name">
+	<input type="reset" value="Reset"><br>
+	<br>
+		<H4>Enter Doctor Name</H4>
+	<br>
+	<input name="DOCTORNAME" type="text" size="25" value="Enter Doctor Name">
+	<input type="reset" value="Reset"><br>
+	<br>
+		<H4>Enter Radiologist Name</H4>
+	<br>
+	<input name="RADIOLOGISTNAME"type="text" size="25" value="Enter Radiologist Name">
+	<input type="reset" value="Reset"><br>
+	<br>
+		<H4>Enter Test Type</H4>
+	<br>
+	<input name="TESTTYPE" type="text" size="25" value="Enter Test Type">
+	<input type="reset" value="Reset"><br>
+	<br>
+			<H4>Enter Prescribing Date</H4>
+	<br>
+	<input name="PRESCRIBINGDATE" type="text" size="25" value="ex) 02-JAN-91">
+	<input type="reset" value="Reset"><br>
+	<br>
+			<H4>Enter Test Date</H4>
+	<br>
+	<input name="TESTDATE" type="text" size="25" value="ex) 05-Jun-99">
+	<input type="reset" value="Reset"><br>
+	<br>
+			<H4>Enter Diagnosis</H4>
+	<br>
+	<input name="DIAGNOSIS" type="text" size="25" value="Enter Diagnosis">
+	<input type="reset" value="Reset"><br>
+	<br>
+			<H4>Enter Test Type</H4>
+	<br>
+	<input name="DESCRIPTION" type="text" size="25" value="Enter Description">
+	<input type="reset" value="Reset"><br>
+	<br>
+	<%
+	
 	%>
 
-		</select> 
 		<br>
 
 		<INPUT TYPE="submit" NAME="SUBMIT" VALUE="Select">
