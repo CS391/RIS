@@ -6,10 +6,11 @@
 </head>
 
 <body>
-<%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat, java.util.Calendar" %>
 <% 
 	if (request.getParameter ("Submit") == null &&
-		request.getParameter("Submit Changes") == null)
+		request.getParameter ("Submit Changes") == null &&
+		request.getParameter ("SubmitNewUser") == null)
 	{
 		out.println ("Please select a user to manage: ");
 		Connection conn = connect.connect.dbConnect ();
@@ -49,9 +50,31 @@
 		{
 			out.println ("<hr>" + ex.getMessage () + "<hr>");
 		}
+		
+		out.println ("<br><br>");
+		out.println ("<FORM NAME=\"Select\" ACTION=\"\" METHOD=\"post\">");
+			out.println ("Create New User:<br><br><table>");
+			out.println ("<tr>");
+			out.println ("<td>User Name: </td>");
+				out.println ("<td><input type=\"text\" name=\"newUser\" value=\"" + "\" /></td>");
+			out.println ("</tr><tr>");
+			out.println ("<td>Password: </td>");
+				out.println ("<td><input type=\"password\" name=\"pass\" value=\"" + "\" /></td>");
+			out.println ("</tr><tr>");
+			out.println ("<td>Class: </td>");
+				out.println ("<td><select name=\"class\">");
+				out.println ("<option value=\"a\">a</option>");
+				out.println ("<option value=\"p\">p</option>");
+				out.println ("<option value=\"d\">d</option>");
+				out.println ("<option value=\"r\">r</option>");
+				out.println ("</select></td>");
+			out.println ("</tr></table>");
+			out.println ("<INPUT TYPE=\"submit\" NAME=\"SubmitNewUser\" VALUE=\"Submit\">");
+		out.println ("</FORM>");
+		
 	}
 	else if (request.getParameter ("Submit") != null &&
-			 request.getParameter("Submit Changes") == null)
+			 request.getParameter ("Submit Changes") == null)
 	{
 		Connection conn = connect.connect.dbConnect ();
 		String userName = request.getParameter ("USER").trim ();
@@ -98,9 +121,27 @@
 			out.println ("</td>");
 		out.println ("</tr><tr>");
 			out.println ("<td>Class: </td>");
-			out.println ("<td>");
-				out.println ("<input type=\"text\" name=\"uClass\" value=\"" + uClass + "\" />");
-			out.println ("</td>");
+// 			out.println ("<td>");
+// 				out.println ("<input type=\"text\" name=\"uClass\" value=\"" + uClass + "\" />");
+// 			out.println ("</td>");
+			out.println ("<td><select name=\"class\">");
+			if (uClass.equals("a"))
+				out.println ("<option selected=\"selected\" value=\"a\">a</option>");
+			else
+				out.println ("<option value=\"a\">a</option>");
+			if (uClass.equals("p"))
+				out.println ("<option selected=\"selected\" value=\"p\">p</option>");
+			else
+				out.println ("<option value=\"p\">p</option>");
+			if (uClass.equals("d"))
+				out.println ("<option selected=\"selected\" value=\"d\">d</option>");
+			else
+				out.println ("<option value=\"d\">d</option>");
+			if (uClass.equals("r"))
+				out.println ("<option selected=\"selected\" value=\"r\">r</option>");
+			else
+				out.println ("<option value=\"r\">r</option>");
+			out.println ("</select></td>");
 		out.println ("</tr><tr>");
 			out.println ("<td>Date Registered: </td>");
 			out.println ("<td>");
@@ -224,7 +265,7 @@
 		}
 	}
 	else if (request.getParameter ("Submit") == null &&
-			 request.getParameter("Submit Changes") != null)
+			 request.getParameter ("Submit Changes") != null)
 	{
 		Connection conn = connect.connect.dbConnect ();
 		
@@ -303,6 +344,41 @@
 		{
 			out.println ("<hr>" + ex.getMessage () + "<hr>");
 		}
+	}
+	else if (request.getParameter ("SubmitNewUser") != null)
+	{
+		String newUser = request.getParameter ("newUser");
+		String pass = request.getParameter ("pass");
+		String uClass = request.getParameter ("class");
+		
+		Date now = Calendar.getInstance ().getTime ();
+		SimpleDateFormat finalFormat = new SimpleDateFormat ("dd-MMM-yy");
+		String date = connect.connect.getDateStringFromDateString (finalFormat.format (now));
+		
+		Connection conn = connect.connect.dbConnect ();
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = "insert into users values ('" + newUser + "', '" + pass + "', '" + uClass + "', '" + date + "')";
+		try
+		{
+			stmt = conn.createStatement ();
+			rset = stmt.executeQuery (sql);
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
+		
+		try
+		{
+			conn.close();
+		}
+		catch (Exception ex)
+		{
+			out.println ("<hr>" + ex.getMessage () + "<hr>");
+		}
+		
+		out.println ("User: " + newUser + " created.");
 	}
 %>
 </body>
