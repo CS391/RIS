@@ -18,9 +18,6 @@
 Connection conn = connect.connect.dbConnect();
 Statement stmt = null;
 ResultSet rset = null;
-
-if(request.getParameter("Submit") == null &&
-        request.getParameter("Submit Changes") == null){
     
     String selectedDiagnosis = request.getParameter("DIAGNOSIS").trim();
     String selectedStartDate = request.getParameter("STARTDATE").trim();
@@ -79,7 +76,7 @@ if(request.getParameter("Submit") == null &&
 	</tr>
 	<%
     	}
-}
+
 %>
 </table>
 		

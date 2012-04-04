@@ -14,39 +14,49 @@
 *and then to upload medical images into the radiology record.
 *A sample uploading program is in UploadFromLocal.jsp
 */
-
-//STEP 1: Enter a Radiology Record
- //radiology_record(record_id,patient_name,doctor_name,radiologist_name,
- //test_type,prescribing_date,test_date,diagnosis, description)
    
 //STEP 2: Upload a photo from local file
+	boolean returned = false;
 
+	    // First entry
+	    if (request.getParameter("PATIENTNAME") == null){
+	    	//TODO: Finish verification test!
+	    	returned = false;
+	    } else{
+	       	returned = true;
+	       	
+	       	
+	      // Invalid submission
+		  if(request.getParameter("PATIENTNAME").equals("") || request.getParameter("DOCTORNAME").equals("") || 
+		        request.getParameter("RADIOLOGISTNAME").equals("") || request.getParameter("TESTTYPE").equals("") || 
+		        request.getParameter("PRESCRIBINGDATE").equals("") || request.getParameter("TESTDATE").equals("") ||
+		        request.getParameter("DIAGNOSIS").equals("") || request.getParameter("DESCRIPTION").equals("") || 
+		        !testDates(request.getParameter("PRESCRIBINGDATE"), request.getParameter("TESTDATE"))){
+		      	out.println("Please fill out the form with all fields this time");
+		      // Valid submission
+		  } else{
+			out.println("<jsp:forward page=\"inputValidator.jsp\"></jsp:forward>");
+
+			//TODO: still not passing parameters........
+	   String patientName = request.getParameter( "patientName");
+  	   session.setAttribute( "theName", );
+
+
+		    String redirectURL = "inputValidator.jsp";
+		    response.sendRedirect(redirectURL);
+		  }
+	      }
+	String valueToSet = "";
+
+	// Set up connection
     Connection conn = connect.connect.dbConnect();
     Statement stmt = null;
     ResultSet rset = null;
     
-    String recordIdQuery = "SELECT MAX(record_id) FROM radiology_record";
-    try{
-        stmt = conn.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        rset = stmt.executeQuery(recordIdQuery);
-    } 
-    
-    catch (Exception ex){
-        out.println("<hr>" + ex.getMessage() + "<hr>");
-    }
-
-    	int recordId = -1;
-    if(rset!=null){
-        rset.next();
-    	recordId = rset.getInt(1)+1;
-    }
-    
+    	//Retrieve Doctor and Radiologist names
 		ArrayList<String> doctorNames = new ArrayList<String>();
     	ArrayList<String> radiologistNames = new ArrayList<String>();
-    	ArrayList<String> testTypes = new ArrayList<String>();
-    	
-    String infoQuery = "SELECT doctor_name, radiologist_name, test_type FROM radiology_record";
+    String infoQuery = "SELECT user_name, class FROM users u WHERE u.class ='r' OR u.class='d'";
     try{
         stmt = conn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -54,25 +64,36 @@
     }     catch (Exception ex){
         out.println("<hr>" + ex.getMessage() + "<hr>");
     }
-    
-    //TODO: Broken?
-    	while(rset.next() && rset != null){
+    	// Prepare doctor and radiologist names
+    	while( rset != null && rset.next()){
+    	    if(rset.getString(2).equals("d"))
+    	    {
     		doctorNames.add(rset.getString(1));
-    	    radiologistNames.add(rset.getString(2));
-    	    testTypes.add(rset.getString(3));
-    	}
+    	    } 
+    	    else if (rset.getString(2).equals("r"))
+    	    {
+    	    radiologistNames.add(rset.getString(1));
 
-    
+		}
+
+    	}
+    	    	
+
        %>
 
-	<FORM NAME="UploadingForm" ACTION="uploadFromLocal.jsp" METHOD="post"">
-		<H4>Enter Patient Name</H4>
-		<br> <input name="PATIENTNAME" type="text" size="25"> <input
-			type="reset" value="Reset"><br> <br>
-		<H4>Select Doctor Name</H4>
-		<br> <select name="DOCTORNAME">
-			<% 
-			//TODO: Broken
+	<FORM NAME="UploadingForm" ACTION="uploading.jsp" METHOD="post"">
+		<%
+		out.println("<H4>Enter Patient Name</H4>");
+			if(returned){
+			    valueToSet = request.getParameter("PATIENTNAME");
+			}
+			out.println("<br> <input name=\"PATIENTNAME\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+			valueToSet = "";
+		
+		out.println("<H4>Select Doctor Name</H4>");
+		out.println("<br> <select name=\"DOCTORNAME\">");
+			
+			// Populate doctor dropdown
 			String doctorName = "";
 			for(int i=0; i<doctorNames.size();i++){
 			    doctorName = doctorNames.get(i);
@@ -80,33 +101,61 @@
 					out.println("<option value=\"" + doctorName + "\">" + doctorName + "</option>");
 				}
 			}
-	%>
-		</select><br> <br>
-		<H4>Enter Radiologist Name</H4>
-		<br> <input name="RADIOLOGISTNAME" type="text" size="25">
-		<input type="reset" value="Reset"> <br> <br>
-		<H4>Enter Test Type</H4>
-		<br> <input name="TESTTYPE" type="text" size="25"> <input
-			type="reset" value="Reset"> <br> <br>
-		<H4>Enter Prescribing Date</H4>
-		<br> <input name="PRESCRIBINGDATE" type="text" size="25">
-		<input type="reset" value="Reset"> <br> <br>
-		<H4>Enter Test Date</H4>
-		<br> <input name="TESTDATE" type="text" size="25"> <input
-			type="reset" value="Reset"> <br> <br>
-		<H4>Enter Diagnosis</H4>
-		<br> <input name="DIAGNOSIS" type="text" size="25"> <input
-			type="reset" value="Reset"> <br> <br>
-		<H4>Enter Description</H4>
-		<br> <input name="DESCRIPTION" type="text" size="25"> <input
-			type="reset" value="Reset"> <br> <br>
-		<%
 	
-	%>
+		out.println("</select><br> <br>");
+		out.println("<H4>Select Radiologist Name</H4>");
+		out.println("<br> <select name=\"RADIOLOGISTNAME\">");
+		
+			// Populate radiologist dropdown
+			String radiologistName = "";
+		for(int i=0; i<radiologistNames.size();i++){
+		    radiologistName = radiologistNames.get(i);
+		    if(radiologistName != null){
+				out.println("<option value=\"" + radiologistName + "\">" + radiologistName + "</option>");
+			}
+		}
+		out.println("</select><br> <br>");
+		
+		out.println("<H4>Enter Test Type</H4>");
+		if(returned){
+		    valueToSet = request.getParameter("TESTTYPE");
+		}
+		out.println("<br> <input name=\"TESTTYPE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+		valueToSet = "";
+		
+		out.println("<H4>Enter Prescribing Date</H4>");
+		if(returned){
+		    valueToSet = request.getParameter("PRESCRIBINGDATE");
+		}
+		out.println("<br> <input name=\"PRESCRIBINGDATE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+		valueToSet = "";
+		
+		out.println("<H4>Enter Test Date</H4>");
+		if(returned){
+		    valueToSet = request.getParameter("TESTDATE");
+		}
+		out.println("<br> <input name=\"TESTDATE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+		valueToSet = "";
+		
+		out.println("<H4>Enter Diagnosis</H4>");
+		if(returned){
+		    valueToSet = request.getParameter("DIAGNOSIS");
+		}
+		out.println("<br> <input name=\"DIAGNOSIS\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+		valueToSet = "";
+		
+		out.println("<H4>Enter Description</H4>");
+		if(returned){
+		    valueToSet = request.getParameter("DESCRIPTION");
+		}
+		out.println("<br> <input name=\"DESCRIPTION\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
+		valueToSet = "";
+		%>
+		
+		<%!private boolean testDates(String prescribingDate, String testDate){
 
+		    return true;
+		}
+		    %>
 		<br> <INPUT TYPE="submit" NAME="SUBMIT" VALUE="UploadingForm">
 	</FORM>
-	<%   
-			
-			
-%>
