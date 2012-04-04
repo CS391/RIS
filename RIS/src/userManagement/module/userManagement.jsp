@@ -63,10 +63,10 @@
 			out.println ("</tr><tr>");
 			out.println ("<td>Class: </td>");
 				out.println ("<td><select name=\"class\">");
-				out.println ("<option value=\"a\">a</option>");
-				out.println ("<option value=\"p\">p</option>");
-				out.println ("<option value=\"d\">d</option>");
-				out.println ("<option value=\"r\">r</option>");
+					out.println ("<option value=\"a\">a</option>");
+					out.println ("<option value=\"p\">p</option>");
+					out.println ("<option value=\"d\">d</option>");
+					out.println ("<option value=\"r\">r</option>");
 				out.println ("</select></td>");
 			out.println ("</tr></table>");
 			out.println ("<INPUT TYPE=\"submit\" NAME=\"SubmitNewUser\" VALUE=\"Submit\">");
@@ -145,7 +145,8 @@
 		out.println ("</tr><tr>");
 			out.println ("<td>Date Registered: </td>");
 			out.println ("<td>");
-				out.println ("<input type=\"text\" name=\"dateRegistered\" value=\"" + dateRegistered + "\" />");
+				out.println ("<input type=\"text\" name=\"dateRegistered\" value=\"" + 
+						connect.connect.getDateStringFromDateString (dateRegistered) + "\" />");
 			out.println ("</td>");
 		out.println ("</tr>");
 		
@@ -272,7 +273,7 @@
 		String user = request.getParameter ("user");
 		
 		String pass = request.getParameter ("pass");
-		String uClass = request.getParameter ("uClass");
+		String uClass = request.getParameter ("class");
 		String date = request.getParameter ("dateRegistered");
 		
 		String formattedDate = connect.connect.getDateStringFromDateString (date);
@@ -283,7 +284,6 @@
 			"class=\'" + uClass + "\', " +
 			"date_registered=\'" + formattedDate + "\' " +
 			"where user_name=\'" + user + "\'";
-		
 		try
 		{
 			stmt = conn.createStatement ();
