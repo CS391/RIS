@@ -18,7 +18,7 @@
     Statement stmt = null;
     ResultSet rset = null;
 
-       String infoQuery = "SELECT diagnosis, prescribing_date FROM radiology_record";
+       String infoQuery = "SELECT DISTINCT diagnosis, prescribing_date FROM radiology_record";
        try{
            stmt = conn.createStatement(
                    ResultSet.TYPE_SCROLL_INSENSITIVE,

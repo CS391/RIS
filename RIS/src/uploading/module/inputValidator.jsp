@@ -11,7 +11,7 @@
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.Date"%>
 	<%@ page import="java.text.SimpleDateFormat"%>
-	
+
 
 	<center>
 		<h1>Please Confirm Report Contents</h1>
@@ -21,18 +21,8 @@
 	<%
 	//STEP 1: Enter a Radiology Record
 	 //radiology_record(record_id,patient_name,doctor_name,radiologist_name,
-	 //test_type,prescribing_date,test_date,diagnosis, description)	 
-	    String patientName = request.getParameter("PATIENTNAME");
-		out.print("patientName = " + patientName);
-	    String doctorName   = request.getParameter("DOCTORNAME");
-	    String radiologistName = request.getParameter("RADIOLOGISTNAME");
-	    String testType   = request.getParameter("TESTTYPE");
-	    String prescribingDate = request.getParameter("PRESCRIBINGDATE");
-	    String testDate   = request.getParameter("TESTDATE");
-	    String diagnosis = request.getParameter("DIAGNOSIS");
-	    String description   = request.getParameter("DESCRIPTION");
-
-		// Set up connection
+	//test_type,prescribing_date,test_date,diagnosis, description)	 
+			// Set up connection
 	    Connection conn = connect.connect.dbConnect();
 	    Statement stmt = null;
 	    ResultSet rset = null;
@@ -53,7 +43,17 @@
         rset.next();
     	recordId = rset.getInt(1)+1;
     }
-	 
+	
+		String patientName = (String) session.getAttribute("patientName");
+	    String doctorName = (String) session.getAttribute("doctorName");
+	    String radiologistName = (String) session.getAttribute("radiologistName");
+	    String testType = (String) session.getAttribute("testType");
+	    String prescribingDate = (String) session.getAttribute("prescribingDate");
+	    out.println("prescribingDate = " + prescribingDate);
+	    String testDate = (String) session.getAttribute("testDate");
+	    out.println("testDate = " + testDate);
+	    String diagnosis = (String) session.getAttribute("diagnosis");
+	    String description = (String) session.getAttribute("description");
 
 	%>
 
