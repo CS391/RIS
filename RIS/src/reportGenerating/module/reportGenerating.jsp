@@ -14,9 +14,10 @@
 	</CENTER>
 
 	<%
-    Connection conn = connect.connect.dbConnect();
     Statement stmt = null;
     ResultSet rset = null;
+    
+	Connection conn = connect.connect.dbConnect ();
 
        String infoQuery = "SELECT diagnosis, prescribing_date FROM radiology_record";
        try{
