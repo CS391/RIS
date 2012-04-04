@@ -7,8 +7,6 @@
 	<%@ page import="java.sql.*" %>
 	<% 
 	
-	final String DB_USER_NAME="jletourn";
-	final String DB_PASSWORD="JL3492916";
 
 	if(request.getParameter("Submit") != null){
 		//get the user input from the login page

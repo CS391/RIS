@@ -57,13 +57,14 @@ ResultSet rset = null;
 			<%
     while(rset.next()){
         %>
-        <tr>
-        <td width ="100">Patient</td>
-        <%
+		
+		<tr>
+			<td width="100">Patient</td>
+			<%
     	for(int j=1;j<=NUM_COLS-1;j++){
     	    String value = rset.getString(j);
-			%> 
-			<td width="150"><%=value%> </td> 
+			%>
+			<td width="150"><%=value%></td>
 			<%
 
     	}
@@ -71,14 +72,14 @@ ResultSet rset = null;
         Date convertedDate = dateFormat.parse(rset.getString(NUM_COLS));        
         SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
         String formattedDate = finalFormat.format(convertedDate);
-	%> 
-	<td width="150"><%=formattedDate%> </td> 
-	</tr>
-	<%
+	%>
+			<td width="150"><%=formattedDate%></td>
+		</tr>
+		<%
     	}
 
 %>
-</table>
-		
+	</table>
+
 </body>
 </html>
