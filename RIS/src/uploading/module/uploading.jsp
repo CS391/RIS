@@ -6,6 +6,9 @@
 <body>
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.ArrayList"%>
+	<%@ page import="java.util.Date"%>
+	<%@ page import="java.text.SimpleDateFormat"%>
+	<%@ page import="jave.text.*" %>
 
 	<H1>Ender Radiology Record</H1>
 	<%
@@ -14,8 +17,6 @@
 *and then to upload medical images into the radiology record.
 *A sample uploading program is in UploadFromLocal.jsp
 */
-   
-//STEP 2: Upload a photo from local file
 	boolean returned = false;
 
 	    // First entry
@@ -25,23 +26,34 @@
 	    } else{
 	       	returned = true;
 	       	
+		    String patientName = request.getParameter( "PATIENTNAME");
+		    String doctorName   = request.getParameter("DOCTORNAME");
+		    String radiologistName = request.getParameter("RADIOLOGISTNAME");
+		    String testType   = request.getParameter("TESTTYPE");
+		    String prescribingDate = request.getParameter("PRESCRIBINGDATE");
+		    String testDate   = request.getParameter("TESTDATE");
+		    String diagnosis = request.getParameter("DIAGNOSIS");
+		    String description   = request.getParameter("DESCRIPTION");
 	       	
 	      // Invalid submission
-		  if(request.getParameter("PATIENTNAME").equals("") || request.getParameter("DOCTORNAME").equals("") || 
-		        request.getParameter("RADIOLOGISTNAME").equals("") || request.getParameter("TESTTYPE").equals("") || 
-		        request.getParameter("PRESCRIBINGDATE").equals("") || request.getParameter("TESTDATE").equals("") ||
-		        request.getParameter("DIAGNOSIS").equals("") || request.getParameter("DESCRIPTION").equals("") || 
-		        !testDates(request.getParameter("PRESCRIBINGDATE"), request.getParameter("TESTDATE"))){
-		      	out.println("Please fill out the form with all fields this time");
+		  if(patientName.equals("") || doctorName.equals("") || 
+		        radiologistName.equals("") ||testType.equals("") || 
+		        prescribingDate.equals("") ||testDate.equals("") ||
+		        diagnosis.equals("") ||description.equals("") || 
+		        !validDates(prescribingDate, testDate)){
+		      	out.println("Please fill out the form with all fields in the correct format");
 		      // Valid submission
 		  } else{
-			out.println("<jsp:forward page=\"inputValidator.jsp\"></jsp:forward>");
 
-			//TODO: still not passing parameters........
-	   String patientName = request.getParameter( "patientName");
-  	   session.setAttribute( "theName", );
-
-
+	   		session.setAttribute( "patientName", patientName);
+	   		session.setAttribute( "doctorName", doctorName);
+	   		session.setAttribute( "radiologistName", radiologistName);
+	   		session.setAttribute( "testType", testType);
+	   		session.setAttribute( "prescribingDate", prescribingDate);
+	   		session.setAttribute( "testDate", testDate);
+	   		session.setAttribute( "diagnosis", diagnosis);
+	   		session.setAttribute( "description", description);
+	   		
 		    String redirectURL = "inputValidator.jsp";
 		    response.sendRedirect(redirectURL);
 		  }
@@ -151,10 +163,17 @@
 		out.println("<br> <input name=\"DESCRIPTION\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
 		valueToSet = "";
 		%>
-		
-		<%!private boolean testDates(String prescribingDate, String testDate){
 
-		    return true;
+		<%!private boolean validDates(String prescribingDate, String testDate){
+
+		    try{
+		           SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+		           Date convertedDate = dateFormat.parse(prescribingDate);
+		           convertedDate = dateFormat.parse(testDate);
+		           return true;
+		    	} catch (Exception pe){
+		    	    return false;
+		    	}
 		}
 		    %>
 		<br> <INPUT TYPE="submit" NAME="SUBMIT" VALUE="UploadingForm">
