@@ -15,13 +15,17 @@
 	</H1>
 
 	<% 
+	//connect the the database
 Connection conn = connect.connect.dbConnect ();
+	//get the logged in users class
 String className = (String) session.getAttribute("class");
+	//check to see if the user can access this page
 boolean allowed = connect.CheckClass.checkClass("data_analysis", className);
 if(allowed){
 Statement OLAP = null;
 ResultSet OLAPset = null;
 
+	//OLAP query
 	String OLAPquery =	"SELECT PATIENT_NAME, TEST_TYPE, TEST_DATE " + 
 						"FROM RADIOLOGY_RECORD " + 
 						"GROUP BY CUBE (PATIENT_NAME, TEST_TYPE, TEST_DATE) ";
@@ -56,6 +60,7 @@ ResultSet OLAPset = null;
 		
 		<tr>
 			<%
+			//print out all the values in the result set
 	    	for(int j=1;j<=NUM_COLS-1;j++){
 	    	    String value = OLAPset.getString(j);
 				%>
@@ -91,7 +96,7 @@ ResultSet OLAPset = null;
 		}
 }
 else{
-	out.print("You are not allowed to view this page.");
+	out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
 }
 	%>
 

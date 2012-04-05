@@ -9,6 +9,7 @@
 <H1><CENTER>User Settings</CENTER></H1>
 
 <%
+//get all the cookies and assign them to strings
 classname =  (String)session.getAttribute("class");
 if(classname != null){
 String user_name = getcookieUserName.getValue();
@@ -66,8 +67,9 @@ String phone = getcookiePhone.getValue();
 <HR>
 <%
 }
+//if not logged in show this to the user
 else{
-	out.print("<hr>You are not logged in!<hr>");
+	out.print("<hr>You must login first.<hr>");
 }
 %>
 </body>

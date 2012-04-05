@@ -18,7 +18,11 @@
     ResultSet rset = null;
     
 	Connection conn = connect.connect.dbConnect ();
-
+	//get the logged in users class
+	String className = (String) session.getAttribute("class");
+		//check to see if the user can access this page
+	boolean allowed = connect.CheckClass.checkClass("report_generating", className);
+	if(allowed){
        String infoQuery = "SELECT DISTINCT diagnosis, prescribing_date FROM radiology_record";
        try{
            stmt = conn.createStatement(
@@ -93,7 +97,10 @@ try{
   } catch (Exception ex){
       out.println("<hr>" + ex.getMessage() + "<hr>");
   }
-
+	}
+	else{
+		out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
+	}
 %>
 </body>
 
