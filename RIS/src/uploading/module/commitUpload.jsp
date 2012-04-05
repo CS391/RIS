@@ -4,25 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Confirm Report Contents</title>
+<title>Report Details</title>
 </head>
 <body>
 
 	<%@ page import="java.sql.*"%>
-	<%@ page import="java.util.Date"%>
-	<%@ page import="java.text.SimpleDateFormat"%>
-
 
 	<center>
-		<h1>Please Confirm Report Contents</h1>
+		<h1>Report Details</h1>
 	</center>
 
 
 	<%
-	//STEP 1: Enter a Radiology Record
-	 //radiology_record(record_id,patient_name,doctor_name,radiologist_name,
-	//test_type,prescribing_date,test_date,diagnosis, description)	 
-			// Set up connection
+		// Set up connection
 	    Connection conn = connect.connect.dbConnect();
 	    Statement stmt = null;
 	    ResultSet rset = null;
@@ -49,12 +43,43 @@
 	    String radiologistName = (String) session.getAttribute("radiologistName");
 	    String testType = (String) session.getAttribute("testType");
 	    String prescribingDate = (String) session.getAttribute("prescribingDate");
-	    out.println("prescribingDate = " + prescribingDate);
 	    String testDate = (String) session.getAttribute("testDate");
-	    out.println("testDate = " + testDate);
 	    String diagnosis = (String) session.getAttribute("diagnosis");
 	    String description = (String) session.getAttribute("description");
 
+	            try{           
+	            PreparedStatement pst = conn.prepareStatement("INSERT INTO radiology_record (record_id, patient_name, doctor_name, "
+	                    				+"radiologist_name, test_type, prescribing_date, test_date, diagnosis, description) "
+	                    				+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	            pst.setInt(1, recordId);
+	            pst.setString(2, patientName);
+	            pst.setString(3, doctorName);
+	            pst.setString(4, radiologistName);
+	            pst.setString(5, testType);
+	            pst.setString(6, prescribingDate);
+	            pst.setString(7, testDate);
+	            pst.setString(8, diagnosis);
+	            pst.setString(9, description);
+	            pst.execute();
+
+	            conn.commit();
+		        out.println("<h3>Changes succesfully committed<h3>");
+		        
+	 } catch (SQLException e) {
+	      if (conn != null) {
+	        conn.rollback();
+	        out.println("<h3>ROLLBACK: Changes not committed<h3>");
+	      }
+	      e.printStackTrace();
+	    }
+	 finally {
+	      if (conn != null && !conn.isClosed()) {
+	        conn.close();
+	      }
+	    }
+	    
+	 	out.println("<br><br><br>");
+	 	out.println("<center><h1>Add Image<h1><center>");
 	%>
 
 </body>

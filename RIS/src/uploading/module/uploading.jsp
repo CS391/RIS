@@ -1,14 +1,16 @@
 <%@ include file="/src/header/module/header.jsp"%>
+
 <html>
 <head>
 <title>Upload Radiology Record</title>
+<link rel="stylesheet" href="datepicker.css" type="text/css">
 </head>
 <body>
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.ArrayList"%>
 	<%@ page import="java.util.Date"%>
 	<%@ page import="java.text.SimpleDateFormat"%>
-	<%@ page import="jave.text.*" %>
+	<%@ page import="java.text.*"%>
 
 	<H1>Ender Radiology Record</H1>
 	<%
@@ -21,7 +23,6 @@
 
 	    // First entry
 	    if (request.getParameter("PATIENTNAME") == null){
-	    	//TODO: Finish verification test!
 	    	returned = false;
 	    } else{
 	       	returned = true;
@@ -41,7 +42,8 @@
 		        prescribingDate.equals("") ||testDate.equals("") ||
 		        diagnosis.equals("") ||description.equals("") || 
 		        !validDates(prescribingDate, testDate)){
-		      	out.println("Please fill out the form with all fields in the correct format");
+		      	   out.println("Please fill out all fields with the correct data");
+
 		      // Valid submission
 		  } else{
 
@@ -54,7 +56,7 @@
 	   		session.setAttribute( "diagnosis", diagnosis);
 	   		session.setAttribute( "description", description);
 	   		
-		    String redirectURL = "inputValidator.jsp";
+		    String redirectURL = "commitUpload.jsp";
 		    response.sendRedirect(redirectURL);
 		  }
 	      }
@@ -68,7 +70,8 @@
     	//Retrieve Doctor and Radiologist names
 		ArrayList<String> doctorNames = new ArrayList<String>();
     	ArrayList<String> radiologistNames = new ArrayList<String>();
-    String infoQuery = "SELECT user_name, class FROM users u WHERE u.class ='r' OR u.class='d'";
+    	ArrayList<String> patientNames = new ArrayList<String>();
+    String infoQuery = "SELECT user_name, class FROM users u WHERE u.class ='r' OR u.class='d' OR u.class = 'p'";
     try{
         stmt = conn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -85,22 +88,30 @@
     	    else if (rset.getString(2).equals("r"))
     	    {
     	    radiologistNames.add(rset.getString(1));
-
+		} else if(rset.getString(2).equals("p")){
+		    patientNames.add(rset.getString(1));
 		}
 
     	}
-    	    	
+    		if(conn != null && !conn.isClosed()){
+    	   		conn.close();
+    		}
 
        %>
 
 	<FORM NAME="UploadingForm" ACTION="uploading.jsp" METHOD="post"">
 		<%
 		out.println("<H4>Enter Patient Name</H4>");
-			if(returned){
-			    valueToSet = request.getParameter("PATIENTNAME");
-			}
-			out.println("<br> <input name=\"PATIENTNAME\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
-			valueToSet = "";
+		out.println("<br> <select name=\"PATIENTNAME\">");
+		// Populate radiologist dropdown
+		String patientName = "";
+	for(int i=0; i<patientNames.size();i++){
+	    patientName = patientNames.get(i);
+	    if(patientName != null){
+			out.println("<option value=\"" + patientName + "\">" + patientName + "</option>");
+		}
+	}
+	out.println("</select><br> <br>");
 		
 		out.println("<H4>Select Doctor Name</H4>");
 		out.println("<br> <select name=\"DOCTORNAME\">");
@@ -139,6 +150,16 @@
 		if(returned){
 		    valueToSet = request.getParameter("PRESCRIBINGDATE");
 		}
+
+		
+/*		
+		<input name='date_B' type='text' value='' class='datepicker' />
+		<script language="JavaScript">
+		window.addEvent('load', function() {
+		    new DatePicker('.datepicker', { positionOffset: { x: 0, y: 5 }});
+		});
+		</script>
+*/		
 		out.println("<br> <input name=\"PRESCRIBINGDATE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
 		valueToSet = "";
 		
@@ -167,11 +188,17 @@
 		<%!private boolean validDates(String prescribingDate, String testDate){
 
 		    try{
+
 		           SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-		           Date convertedDate = dateFormat.parse(prescribingDate);
-		           convertedDate = dateFormat.parse(testDate);
+		           Date preDate = dateFormat.parse(prescribingDate);
+		           Date tesDate = dateFormat.parse(testDate);
+		           if(!preDate.before(tesDate)){
+
+		   			 return false;
+		           }
 		           return true;
 		    	} catch (Exception pe){
+
 		    	    return false;
 		    	}
 		}
