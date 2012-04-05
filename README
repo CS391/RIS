@@ -2,6 +2,23 @@ Andrew:
 search
 userManagement -> Complete? Check it for yourself.
 
+How to include Date Picker:
+	Put this in the .jsp file somewhere
+		<head>
+		<link rel="stylesheet" type="text/css" href="/391Project/src/CSS/datepicker.css" />
+		<script type="text/javascript" src="/391Project/src/javascript/datepicker.js"></script>
+		</head>
+	JSP version:
+		out.println ("<form>");
+				out.println ("<td><input name=\"YetAnotherDate\"></td>"); 
+				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('YetAnotherDate', false, 'dmy', '-');\"></td>");
+		out.println ("</form>");
+	HTML version:
+		<form>
+			<input name=\"YetAnotherDate\">
+			<input type=button value=\"select\" onclick=\"displayDatePicker('YetAnotherDate', false, 'dmy', '-');\">
+		</form>
+
 Jordan:
 login -> Complete? Check it for yourself.
 dataAnalysis
