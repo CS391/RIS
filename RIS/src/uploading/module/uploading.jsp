@@ -11,6 +11,7 @@
 	<%@ page import="java.util.Date"%>
 	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.*"%>
+	<%@ page import="java.io.*"%>
 
 	<H1>Ender Radiology Record</H1>
 	<%
@@ -203,5 +204,5 @@
 		    	}
 		}
 		    %>
-		<br> <INPUT TYPE="submit" NAME="SUBMIT" VALUE="UploadingForm">
+		<br><br> <INPUT TYPE="submit" NAME="SUBMIT" VALUE="Commit Changes and Upload Image">
 	</FORM>
