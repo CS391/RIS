@@ -16,6 +16,11 @@
 
 	<%
 Connection conn = connect.connect.dbConnect();
+	//get the logged in users class
+String className = (String) session.getAttribute("class");
+	//check to see if the user can access this page
+boolean allowed = connect.CheckClass.checkClass("report_generating", className);
+if(allowed){
 Statement stmt = null;
 ResultSet rset = null;
     
@@ -47,11 +52,11 @@ ResultSet rset = null;
 	<table>
 		<tr>
 			<td width="150"></td>
-			<td width="150">First Name</td>
-			<td width="150">Last Name</td>
-			<td width="150">Address</td>
-			<td width="150">Phone</td>
-			<td width="150">Prescribing Date</td>
+			<td width="150"><B>First Name</B></td>
+			<td width="150"><B>Last Name</B></td>
+			<td width="150"><B>Address</B></td>
+			<td width="150"><B>Phone</B></td>
+			<td width="150"><B>Prescribing Date</B></td>
 		<tr>
 
 			<%
@@ -77,7 +82,10 @@ ResultSet rset = null;
 		</tr>
 		<%
     	}
-
+}
+else{
+	out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
+}
 %>
 	</table>
 

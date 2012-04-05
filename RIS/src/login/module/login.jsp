@@ -17,6 +17,7 @@
 		<TABLE>
 			<TR VALIGN=TOP ALIGN=LEFT>
 				<%
+//if the password was wrong display to the user the wrong password or userId was used
 String wrongPass = (String) session.getAttribute("wrongPass");
 if(wrongPass != null){
 if(wrongPass.equals("true")){
