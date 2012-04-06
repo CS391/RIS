@@ -18,14 +18,16 @@
         session.removeAttribute("class");
         session.removeAttribute("wrongPass");
         session.removeAttribute("user_name");
-   		session.removeAttribute( "patientName");
-   		session.removeAttribute( "doctorName");
-   		session.removeAttribute( "radiologistName");
-   		session.removeAttribute( "testType");
-   		session.removeAttribute( "prescribingDate");
-   		session.removeAttribute( "testDate");
-   		session.removeAttribute( "diagnosis");
-   		session.removeAttribute( "description");
+   		session.removeAttribute("patientName");
+   		session.removeAttribute("doctorName");
+   		session.removeAttribute("radiologistName");
+   		session.removeAttribute("testType");
+   		session.removeAttribute("prescribingDate");
+   		session.removeAttribute("testDate");
+   		session.removeAttribute("diagnosis");
+   		session.removeAttribute("description");
+   		session.removeAttribute("recordId");
+   		session.removeAttribute("imageId");
 		response.sendRedirect("/391Project/"); //go to the homepage
         %>
 </body>

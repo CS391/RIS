@@ -88,39 +88,39 @@
     <SCRIPT LANGUAGE="JavaScript">
         function Login_button()
         {
-        	parent.location='/391Project/src/login/module/login.jsp'
+        	parent.location='/RIS/src/login/module/login.jsp'
         }    
         function UM_button()
         {
-        	parent.location='/391Project/src/userManagement/module/userManagement.jsp'
+        	parent.location='/RIS/src/userManagement/module/userManagement.jsp'
         }    
         function Report_button()
         {
-        	parent.location='/391Project/src/reportGenerating/module/reportGenerating.jsp'
+        	parent.location='/RIS/src/reportGenerating/module/reportGenerating.jsp'
         }    
         function Uploading_button()
         {
-        	parent.location='/391Project/src/uploading/module/uploading.jsp'
+        	parent.location='/RIS/src/uploading/module/uploading.jsp'
         }    
         function Search_button()
         {
-        	parent.location='/391Project/src/search/module/search.jsp'
+        	parent.location='/RIS/src/search/module/search.jsp'
         }    
         function DA_button()
         {
-        	parent.location='/391Project/src/dataAnalysis/module/dataAnalysis.jsp'
+        	parent.location='/RIS/src/dataAnalysis/module/dataAnalysis.jsp'
         }
         function Home_button()
         {
-        	parent.location='/391Project/'
+        	parent.location='/RIS/'
         }
         function US_button()
         {
-        	parent.location='/391Project/src/login/module/usersettings.jsp'
+        	parent.location='/RIS/src/login/module/usersettings.jsp'
         }
         function LogOut_button()
         {
-        	parent.location='/391Project/src/login/module/logout.jsp'
+        	parent.location='/RIS/src/login/module/logout.jsp'
         }   
     </SCRIPT>
 </BODY>

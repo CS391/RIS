@@ -59,12 +59,12 @@
 			if(passwd.equals(truepwd)){
 				session.setAttribute("class", classname);
 				session.setAttribute("user_name", userName);
-				response.sendRedirect("/391Project/");  //go to the home page
+				response.sendRedirect("/RIS/");  //go to the home page
 			}
 			
 			//if the password is wrong
 			else
-			response.sendRedirect("/391Project/src/login/module/login.jsp"); //go to the login module again
+			response.sendRedirect("/RIS/src/login/module/login.jsp"); //go to the login module again
 			session.setAttribute("wrongPass", "true");//used to display a "wrong password" message
 		}
 		
