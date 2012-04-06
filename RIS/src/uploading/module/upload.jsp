@@ -1,3 +1,10 @@
+<%@ include file="/src/header/module/header.jsp" %>
+<html>
+
+<head>
+<title>Upload</title>
+</head>
+
 <%@page import="org.apache.commons.fileupload.*, java.util.*, java.io.*, java.sql.*" %>
 <%@ include file="/src/header/module/header.jsp"%>
 <%
@@ -94,3 +101,5 @@
 		out.println ("<hr>" + ex.getMessage () + "<hr>");
 	}
 %>
+
+</html>
