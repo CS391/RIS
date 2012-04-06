@@ -23,12 +23,11 @@
 		//check to see if the user can access this page
 	boolean allowed = connect.CheckClass.checkClass("report_generating", className);
 	if(allowed){
-       String infoQuery = "SELECT DISTINCT diagnosis, prescribing_date FROM radiology_record";
+       String diagnosis_sql = "SELECT unique diagnosis FROM radiology_record order by upper(diagnosis)";
+       String prescribing_date = "SELECT unique prescribing_date FROM radiology_record order by prescribing_date"; 
        try{
-           stmt = conn.createStatement(
-                   ResultSet.TYPE_SCROLL_INSENSITIVE,
-                   ResultSet.CONCUR_READ_ONLY);
-           rset = stmt.executeQuery(infoQuery);
+           stmt = conn.createStatement();
+           rset = stmt.executeQuery(diagnosis_sql);
        } 
        catch (Exception ex){
            out.println("<hr>" + ex.getMessage() + "<hr>");
@@ -45,7 +44,7 @@
            
            out.println("<option value=\"" + diagnosis + "\">" + diagnosis + "</option>");
 		}
-       rset.beforeFirst();
+//        rset.beforeFirst();
        
 	%>
 
@@ -55,16 +54,33 @@
 		<select name="STARTDATE">
 			<%
 			
+       try{
+           stmt = conn.createStatement();
+           rset = stmt.executeQuery(prescribing_date);
+       } 
+       catch (Exception ex){
+           out.println("<hr>" + ex.getMessage() + "<hr>");
+       }
 		String startDate = "";
        while(rset != null && rset.next()){
-           startDate = rset.getString(2).trim();
-           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-           Date convertedDate = dateFormat.parse(startDate);        
-           SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-           startDate = finalFormat.format(convertedDate);
+//            startDate = rset.getString(1).trim();
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date convertedDate = null;
+//            try
+//            {
+//            	convertedDate = dateFormat.parse(startDate);
+//            }
+//            catch (Exception e)
+//            {
+//         	   out.println ("<hr>" + e.getMessage () + "<hr>");
+//            }
+//            SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
+//            startDate = finalFormat.format(convertedDate);
+// 			startDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
+			startDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
            out.println("<option value=\"" + startDate + "\">" + startDate + "</option>");
 		}
-       rset.beforeFirst();
+//        rset.beforeFirst();
 	%>
 
 		</select> 
@@ -74,16 +90,32 @@
 		<select name="ENDDATE">
 			<%
     out.print("<br>Please indicate the end time of the report: <br>");
+		       try{
+		           stmt = conn.createStatement();
+		           rset = stmt.executeQuery(prescribing_date);
+		       } 
+		       catch (Exception ex){
+		           out.println("<hr>" + ex.getMessage() + "<hr>");
+		       }
        String endDate = "";
        while(rset != null && rset.next()){
-           endDate = rset.getString(2).trim();
-           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-           Date convertedDate = dateFormat.parse(endDate);        
-           SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-           endDate = finalFormat.format(convertedDate);
+//            endDate = rset.getString(1).trim();
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date convertedDate = null;
+//            try
+//            {
+//            	convertedDate = dateFormat.parse(startDate);
+//            }
+//            catch (Exception e)
+//            {
+//         	   out.println ("<hr>" + e.getMessage () + "<hr>");
+//            }     
+//            SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
+//            endDate = finalFormat.format(convertedDate);
+			endDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
            out.println("<option value=\"" + endDate + "\">" + endDate + "</option>");
 		}
-       rset.beforeFirst();
+//        rset.beforeFirst();
 	%>
 		</select> 
 		<br> 
