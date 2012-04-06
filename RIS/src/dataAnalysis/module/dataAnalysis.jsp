@@ -29,9 +29,7 @@ String patientQuery =	"SELECT USER_NAME " +
 					"WHERE CLASS = 'p'";
 
 try{
-        Patients = conn.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE,
-                ResultSet.CONCUR_READ_ONLY);
+        Patients = conn.createStatement();
 		patientSet = Patients.executeQuery(patientQuery);
 	}
 catch(Exception ex){

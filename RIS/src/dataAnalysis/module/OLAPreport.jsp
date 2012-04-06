@@ -63,6 +63,13 @@ ResultSet OLAPset = null;
 		<tr>
 
 			<%
+			try{
+		        OLAP = conn.createStatement();
+				OLAPset = OLAP.executeQuery(OLAPquery);
+			}
+		catch(Exception ex){
+				out.println("<hr>Error processing the Analysis Report.<hr>");
+			}
 	    while(OLAPset.next()){
 	    	%>
 		
@@ -76,17 +83,17 @@ ResultSet OLAPset = null;
 			<%
 
 	    	}
-	    	String date = OLAPset.getString(NUM_COLS);
-	    	String formattedDate;
-	    	if(date == null){
-	    		formattedDate = "null";
-	    	}
-	    	else{
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        Date convertedDate = dateFormat.parse(date);        
-	        SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-	        formattedDate = finalFormat.format(convertedDate);
-	    	}
+	    	String formattedDate = connect.connect.getDateStringFromDateString (OLAPset.getString(NUM_COLS).trim());
+// 	    	String formattedDate;
+// 	    	if(date == null){
+// 	    		formattedDate = "null";
+// 	    	}
+// 	    	else{
+// 	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+// 	        Date convertedDate = dateFormat.parse(date);        
+// 	        SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
+// 	        formattedDate = finalFormat.format(convertedDate);
+// 	    	}
 	    	%>
 			<td width="200"><%=formattedDate%></td>
 		</tr>
