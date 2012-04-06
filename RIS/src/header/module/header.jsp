@@ -8,7 +8,6 @@
         <%
         //get all the cookies set in the log in
         Cookie cookies[] = request.getCookies();
-        Cookie getcookieUserName = null;
         Cookie getcookiePassword = null;
         Cookie getcookieFirstName = null;
         Cookie getcookieLastName = null;
@@ -20,9 +19,6 @@
         	//assign the cookies to their appropriate variables
         for(int i=0; i < cookies.length; i++){
         	
-        	if(cookies[i].getName().equals("user_name")){
-        		getcookieUserName = cookies[i];
-        	}
         	if(cookies[i].getName().equals("password")){
         		getcookiePassword = cookies[i];
         	}
@@ -51,12 +47,6 @@
         //class will be null if not logged in
         if(classname == null){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"Uploading_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
-        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"Login_button()\">");//value is login when not logged in
         }
         //display the buttons that the administrator class can access

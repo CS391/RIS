@@ -12,7 +12,7 @@
 //get all the cookies and assign them to strings
 classname =  (String)session.getAttribute("class");
 if(classname != null){
-String user_name = getcookieUserName.getValue();
+String user_name = (String)session.getAttribute("user_name");
 String first_name = getcookieFirstName.getValue();
 String last_name = getcookieLastName.getValue();
 String address = getcookieAddress.getValue();
