@@ -8,9 +8,7 @@
 </head>
 <body>
 
-	<%@ page import="java.sql.*"%>
-	<%@ page import="java.io.*"%>
-
+<%@page import="org.apache.commons.fileupload.*, java.util.*, java.io.*, java.sql.*" %>
 	<center>
 		<h1>Report Details</h1>
 	</center>
@@ -100,65 +98,13 @@
 	 	 *  http://www.coreservlets.com/.
 	 	 *  &copy; 2000 Marty Hall; may be freely used or adapted.
 	 	 */
-	 	 
-	%>
-	<form name="UPLOAD" method="POST" enctype="multipart/form-data"
-		action="uploadFromLocal.jsp">
-		<table>
-			<tr>
-				<th>File path:</th>
-				<td><input name="FILEPATH" type="file" size="30"></input></td>
-			</tr>
-			<tr>
-				<td ALIGN=CENTER COLSPAN="2"><input type="submit"
-					name=".submit" value="Upload"></td>
-			</tr>
-		</table>
-	</form>
-
-
-	<table border="0" cellpadding="7" cellspacing="0" width="640">
-	<tbody><tr><td colspan="2" align="center"><font color="red" face="arial" size="+1"><b><u>JUpload - File Upload Applet</u></b></font></td></tr>
-	<tr height="20"></tr>
-	<tr><td colspan="2" bgcolor="#3f7c98"><center><font color="#ffffff">FileUpload Applet</font></center></td></tr>
-	<tr><td colspan="2" align="center">
-	</table>
-
-
-        <APPLET
-                    CODE="wjhk.jupload2.JUploadApplet"
-                    NAME="JUpload"
-                    ARCHIVE="wjhk.jupload.jar"
-                    WIDTH="640"
-                    HEIGHT="300"
-                    MAYSCRIPT="true"
-                    ALT="The java pugin must be installed.">
-            <param name="postURL" value="handleApplet.jsp" />
-            <!-- Optionnal, see code comments -->
-            <param name="showLogWindow" value="false" />
-
-            Java 1.5 or higher plugin required. 
-
-        </APPLET>
-
-	    
-	
-	<%
-	
-	/*
-	 	OutputStream o = response.getOutputStream();
-	 	InputStream is = new FileInputStream(new File("/home/dsk03/ugrad/jabrand/Desktop/ALLIEScreenshots/21EasterEggInput.jpg"));
-	 	byte[] buf = new byte[32 * 1024]; 
-	 	int nRead = 0;
-	 	while( (nRead=is.read(buf)) != -1 ) {
-	 	    o.write(buf, 0, nRead);
-	 	}
-	 	o.flush();
-	 	o.close();
-*/
-
-
-	%>
-
+	 	 %>
+	 	 <form  action="upload.jsp"  method="post"  enctype="multipart/form-data">
+		Select File <input type="file" name="file1">
+		<p>
+		Select Filename <input type="text" size="20" name="filename">
+		<p>
+		<input type=submit value="Upload">
+		</form>
 </body>
 </html>

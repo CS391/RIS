@@ -16,7 +16,7 @@
    	FileItem  name = (FileItem) items.get (1);
    	String  target = name.getString ();
      
-    String path = "../../../src/uploading/module/tmpFiles/" +  target;
+    String path = "../../../src/uploading/module/tmpFiles/" + target;
    	File outfile = new File (path);
    	file.write (outfile);
    
@@ -27,26 +27,29 @@
 	PreparedStatement ps = null;
 	ResultSet rset = null;
 	// Get record_id from user
-	String record_id = 5;
+	String record_id = "5";
 	// Find the next image_id to use
-	String image_id = 5;
+	String image_id = "5";
 	String sql = "insert into pacs_images values ('" + record_id + "', '" + image_id + "', ?, ?, ?)";
-	FileInputStream fis;
+	FileInputStream fis = null;
 	try
 	{
 		ps = conn.prepareStatement (sql);
 
-		File image = new File (path); 
+		out.println ("Hi");
+		File image = new File (path);
+		out.println ("Hi2");
 		fis = new FileInputStream (image);
-
+		out.println ("Hi3");
 		// Thumbnail, need to change the size of picture
 		ps.setBinaryStream (1, (InputStream) fis, (int) (image.length ()));
 		// Regular size, need to change the size of picture
 		ps.setBinaryStream (2, (InputStream) fis, (int) (image.length ()));
 		// Full size, should be usual do not change.
 		ps.setBinaryStream (3, (InputStream) fis, (int) (image.length ()));
-
-		int s = ps.executeUpdate (); 
+		out.println ("Hi4");
+		int s = ps.executeUpdate ();
+		out.println ("Hi5");
 		if (s > 0) 
 		{ 
 			// Tell user they've uploaded
@@ -63,6 +66,7 @@
 		out.println ("<hr>" + ex.getMessage () + "<hr>");
 	}
 	
+	fis.close ();
 	ps.close ();
 	
 	try
