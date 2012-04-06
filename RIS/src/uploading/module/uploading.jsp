@@ -5,7 +5,10 @@
 <title>Upload Radiology Record</title>
 <link rel="stylesheet" href="datepicker.css" type="text/css">
 </head>
-
+		<head>
+		<link rel="stylesheet" type="text/css" href="/391Project/src/CSS/datepicker.css" />
+		<script type="text/javascript" src="/391Project/src/javascript/datepicker.js"></script>
+		</head>
 <body>
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.ArrayList"%>
@@ -41,7 +44,8 @@
 	      // Invalid submission
 		  if(patientName.equals("") || doctorName.equals("") || 
 		        radiologistName.equals("") ||testType.equals("") || 
-		        prescribingDate.equals("") ||testDate.equals("") ||
+		        prescribingDate.equals("") ||
+		        testDate.equals("") ||
 		        diagnosis.equals("") ||description.equals("") || 
 		        !validDates(prescribingDate, testDate)){
 		      	   out.println("Please fill out all fields with the correct data");
@@ -142,6 +146,7 @@
 		out.println("</select><br> <br>");
 		
 		out.println("<H4>Enter Test Type</H4>");
+		
 		if(returned){
 		    valueToSet = request.getParameter("TESTTYPE");
 		}
@@ -149,29 +154,23 @@
 		valueToSet = "";
 		
 		out.println("<H4>Enter Prescribing Date</H4>");
+		
 		if(returned){
 		    valueToSet = request.getParameter("PRESCRIBINGDATE");
 		}
+		
 
-		
-/*		
-		<input name='date_B' type='text' value='' class='datepicker' />
-		<script language="JavaScript">
-		window.addEvent('load', function() {
-		    new DatePicker('.datepicker', { positionOffset: { x: 0, y: 5 }});
-		});
-		</script>
-*/		
-		out.println("<br> <input name=\"PRESCRIBINGDATE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
-		valueToSet = "";
-		
+		out.println ("<input name=\"PRESCRIBINGDATE\">"); 
+		out.println ("<input type=button value=\"select\" onclick=\"displayDatePicker('PRESCRIBINGDATE', false, 'dmy', '-');\">");
+
 		out.println("<H4>Enter Test Date</H4>");
 		if(returned){
 		    valueToSet = request.getParameter("TESTDATE");
 		}
-		out.println("<br> <input name=\"TESTDATE\" type=\"text\" size=\"25\"value=\""+valueToSet+"\"> <input type=\"reset\" value=\"Reset\">");
-		valueToSet = "";
-		
+
+		out.println ("<input name=\"TESTDATE\">"); 
+		out.println ("<input type=button value=\"select\" onclick=\"displayDatePicker('TESTDATE', false, 'dmy', '-');\">");
+
 		out.println("<H4>Enter Diagnosis</H4>");
 		if(returned){
 		    valueToSet = request.getParameter("DIAGNOSIS");
