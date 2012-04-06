@@ -43,8 +43,10 @@
 		out.println ("Hi3");
 		// Thumbnail, need to change the size of picture
 		ps.setBinaryStream (1, (InputStream) fis, (int) (image.length ()));
+		fis = new FileInputStream (image);
 		// Regular size, need to change the size of picture
 		ps.setBinaryStream (2, (InputStream) fis, (int) (image.length ()));
+		fis = new FileInputStream (image);
 		// Full size, should be usual do not change.
 		ps.setBinaryStream (3, (InputStream) fis, (int) (image.length ()));
 		out.println ("Hi4");
