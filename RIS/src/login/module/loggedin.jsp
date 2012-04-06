@@ -43,13 +43,11 @@
 			//set the required variables from the persons table and add them as cookies
 			while(userSet.next()){
 							
-			Cookie cookieUserName = new Cookie("user_name", userSet.getString(1));
 			Cookie cookieFirstName = new Cookie("first_name", userSet.getString(2));
 			Cookie cookieLastName = new Cookie("last_name", userSet.getString(3));
 			Cookie cookieAddress = new Cookie("address", userSet.getString(4));
 			Cookie cookieEmail = new Cookie("email", userSet.getString(5));
 			Cookie cookiePhone = new Cookie("phone", userSet.getString(6));
-			response.addCookie(cookieUserName);
 			response.addCookie(cookieFirstName);
 			response.addCookie(cookieLastName);
 			response.addCookie(cookieAddress);

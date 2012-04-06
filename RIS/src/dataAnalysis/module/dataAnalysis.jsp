@@ -1,7 +1,6 @@
 <%@ include file="/src/header/module/header.jsp"%>
 
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.io.*"%>
 
 <HTML>
 <HEAD>
@@ -13,7 +12,6 @@
 	<H1>
 		<CENTER>Data Analysis</CENTER>
 	</H1>
-
 	<% 
 	//connect the the database
 Connection conn = connect.connect.dbConnect ();
@@ -22,71 +20,59 @@ String className = (String) session.getAttribute("class");
 	//check to see if the user can access this page
 boolean allowed = connect.CheckClass.checkClass("data_analysis", className);
 if(allowed){
-Statement OLAP = null;
-ResultSet OLAPset = null;
-
-	//OLAP query
-	String OLAPquery =	"SELECT PATIENT_NAME, TEST_TYPE, TEST_DATE " + 
-						"FROM RADIOLOGY_RECORD " + 
-						"GROUP BY CUBE (PATIENT_NAME, TEST_TYPE, TEST_DATE) ";
 	
-	try{
-	        OLAP = conn.createStatement(
-	                ResultSet.TYPE_SCROLL_INSENSITIVE,
-	                ResultSet.CONCUR_READ_ONLY);
-			OLAPset = OLAP.executeQuery(OLAPquery);
-		}
-	catch(Exception ex){
-			out.println("<hr>Error processing the Analysis Report.<hr>");
-		}
-	    int NUM_COLS = 3;
-	    OLAPset.last();
-	    int NUM_ROWS = OLAPset.getRow();
-	    OLAPset.beforeFirst();
-	    %>
-	<table>
-		<tr>
-			<td width="200"><B>Patient Name</B>
-			</td>
-			<td width="200"><B>Test Type</B>
-			</td>
-			<td width="200"><B>Test Date</B>
-			</td>
-		<tr>
+	Statement Patients= null;
+	ResultSet patientSet = null;
 
-			<%
-	    while(OLAPset.next()){
-	    	%>
-		
-		<tr>
-			<%
-			//print out all the values in the result set
-	    	for(int j=1;j<=NUM_COLS-1;j++){
-	    	    String value = OLAPset.getString(j);
-				%>
-			<td width="200"><%=value%></td>
-			<%
+String patientQuery =	"SELECT USER_NAME " + 
+					"FROM USERS " + 
+					"WHERE CLASS = 'p'";
 
-	    	}
-	    	String date = OLAPset.getString(NUM_COLS);
-	    	String formattedDate;
-	    	if(date == null){
-	    		formattedDate = "null";
-	    	}
-	    	else{
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        Date convertedDate = dateFormat.parse(date);        
-	        SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-	        formattedDate = finalFormat.format(convertedDate);
-	    	}
-	    	%>
-			<td width="200"><%=formattedDate%></td>
-		</tr>
-		<%
-	        	}
+try{
+        Patients = conn.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY);
+		patientSet = Patients.executeQuery(patientQuery);
+	}
+catch(Exception ex){
+		out.println("<hr>Error processing the Analysis Report.<hr>");
+	}
 %>
-	</table>
-	<%
+
+<head>
+<script type="text/javascript">
+    function displayForm(c){
+        if(c.value == "1"){
+            document.getElementById("Patient").style.visibility='hidden';
+        }
+        else if(c.value =="2"){
+            document.getElementById("Patient").style.visibility='visible';
+        }
+        else{
+        }
+    }        
+</script>
+</head>
+
+<form name="input" action="OLAPreport.jsp" method="post">
+	<b>Display by:</b><br> <label>Patient Name<input value="1"
+		type="radio" name="formselector" onclick="displayForm(this)" checked>
+	</label> <label> Test Type<input value="2" type="radio"
+		name="formselector" onclick="displayForm(this)">
+	</label> <select style="visibility: hidden" id="Patient" name="Patient">
+		<%
+while(patientSet.next()){
+	out.println("<option id="+"'"+patientSet.getString(1)+"'"+">"+patientSet.getString(1)+"</option>");
+	}
+	%>
+	</select><br> <label> Time Period:<select name="Time">
+		<option id="year">Year</option>
+		<option id="month">Month</option>
+		<option id="week">Week</option>
+	</select></label><br> <input type="submit" value="Submit" />
+</form>
+<%
+
 		try{
 			conn.close();
 		}
@@ -99,7 +85,6 @@ else{
 	out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
 }
 	%>
-
 </BODY>
 
 </HTML>
