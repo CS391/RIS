@@ -364,7 +364,7 @@ function getDateString(dateVal)
  
   switch (dateFormat) {
     case "dmy" :
-      return dayString + dateSeparator + monthString + dateSeparator + dateVal.getFullYear();
+      return dayString + dateSeparator + monthString + dateSeparator + dateVal.getFullYear().toString().slice(2);
     case "ymd" :
       return dateVal.getFullYear() + dateSeparator + monthString + dateSeparator + dayString;
     case "mdy" :

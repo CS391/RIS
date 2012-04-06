@@ -8,8 +8,6 @@
 </head>
 
 <body>
-<a href="/391Project/src/CSS/datepicker.css">Hi</a>
-<a href="/391Project/src/javascript/datepicker.js">Hi</a>
 <%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat, java.util.Calendar" %>
 <% 
 	if (request.getParameter ("Submit") == null &&
@@ -148,15 +146,16 @@
 			out.println ("</select></td>");
 		out.println ("</tr><tr>");
 			out.println ("<td>Date Registered: </td>");
-			out.println ("<td>");
-				out.println ("<input type=\"text\" name=\"dateRegistered\" value=\"" + 
-						connect.connect.getDateStringFromDateString (dateRegistered) + "\" />");
-			out.println ("</td>");
-		out.println ("</tr><tr>");
+// 			out.println ("<td>");
+// 				out.println ("<input type=\"text\" name=\"dateRegistered\" value=\"" + 
+// 						connect.connect.getDateStringFromDateString (dateRegistered) + "\" />");
+// 			out.println ("</td>");
+// 		out.println ("</tr><tr>");
 		out.println ("<form>");
-			out.println ("<td><input name=\"YetAnotherDate\"></td>"); 
+			out.println ("<td><input name=\"YetAnotherDate\" readonly=\"readonly\" onfocus=\"this.blur();\" value=\"" + 
+					connect.connect.getDateStringFromDateString (dateRegistered) + "\"></td>"); 
 			out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('YetAnotherDate', false, 'dmy', '-');\"></td>");
-		out.println ("</form>"); // TODO CONTINUE EDITING HERE ***********************
+		out.println ("</form>");
 		out.println ("</tr>");
 		
 		out.println ("</table><br>");
@@ -283,7 +282,7 @@
 		
 		String pass = request.getParameter ("pass");
 		String uClass = request.getParameter ("class");
-		String date = request.getParameter ("dateRegistered");
+		String date = request.getParameter ("YetAnotherDate");
 		
 		String formattedDate = connect.connect.getDateStringFromDateString (date);
 		
