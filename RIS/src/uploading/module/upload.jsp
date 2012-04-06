@@ -1,4 +1,5 @@
 <%@page import="org.apache.commons.fileupload.*, java.util.*, java.io.*, java.sql.*" %>
+<%@ include file="/src/header/module/header.jsp"%>
 <%
    	// JSP to handle  uploading
    
@@ -19,28 +20,43 @@
     String path = "../../../src/uploading/module/tmpFiles/" + target;
    	File outfile = new File (path);
    	file.write (outfile);
-   
-   	out.println ("Upload Is Successful!");
-   
+   	
    	Connection conn = connect.connect.dbConnect ();
    
 	PreparedStatement ps = null;
+	Statement stmt = null;
 	ResultSet rset = null;
+	 // Retrieve recordId
+	    String imageIdQuery = "SELECT MAX(image_id) FROM pacs_images";
+	    try{
+	        stmt = conn.createStatement(
+	                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+	        rset = stmt.executeQuery(imageIdQuery);
+	    } 
+	    
+	    catch (Exception ex){
+	        out.println("<hr>" + ex.getMessage() + "<hr>");
+	    }
+
+	    	int imageId = -1;
+	    if(rset!=null){
+	        rset.next();
+	    	imageId = rset.getInt(1)+1;
+			session.setAttribute("imageId",imageId);
+	    }
+
 	// Get record_id from user
-	String record_id = "5";
+	String record_id = ""+session.getAttribute("recordId");
 	// Find the next image_id to use
-	String image_id = "6";
+	String image_id = ""+imageId;
 	String sql = "insert into pacs_images values ('" + record_id + "', '" + image_id + "', ?, ?, ?)";
 	FileInputStream fis = null;
 	try
 	{
 		ps = conn.prepareStatement (sql);
 
-		out.println ("Hi");
 		File image = new File (path);
-		out.println ("Hi2");
 		fis = new FileInputStream (image);
-		out.println ("Hi3");
 		// Thumbnail, need to change the size of picture
 		ps.setBinaryStream (1, (InputStream) fis, (int) (image.length ()));
 		fis = new FileInputStream (image);
@@ -49,18 +65,16 @@
 		fis = new FileInputStream (image);
 		// Full size, should be usual do not change.
 		ps.setBinaryStream (3, (InputStream) fis, (int) (image.length ()));
-		out.println ("Hi4");
 		int s = ps.executeUpdate ();
-		out.println ("Hi5");
 		if (s > 0) 
 		{ 
 			// Tell user they've uploaded
-			out.println ("Winning");
+			out.println("<center><h3>File \""+target+"\" Successfully Uploaded to Patient \""+session.getAttribute("patientName")+"\" Record<h3><center>");
 		}
 		else
 		{
 			// Tell user the upload failed
-			out.println ("I've failed my ancestors");			
+			out.println("<center><h3>File "+target+" Not Successfully Uploaded to Patient "+session.getAttribute("patientName")+" Record<h3><center>");
 		}
 	}
 	catch (Exception ex)
