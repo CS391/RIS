@@ -30,7 +30,10 @@
  *  &copy; 2000 Marty Hall; may be freely used or adapted.
  */
 
+ 
+ /*
 
+ // THIS MIGHT WORK!
  String gifLocation = "images/window.jpg";
 
     if ((gifLocation == null) ||
@@ -69,7 +72,7 @@
 
     } catch(IOException ioe) {
     }
-
+*/
 
 %>
 

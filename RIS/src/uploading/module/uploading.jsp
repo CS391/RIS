@@ -5,6 +5,7 @@
 <title>Upload Radiology Record</title>
 <link rel="stylesheet" href="datepicker.css" type="text/css">
 </head>
+
 <body>
 	<%@ page import="java.sql.*"%>
 	<%@ page import="java.util.ArrayList"%>
