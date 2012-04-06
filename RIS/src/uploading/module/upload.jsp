@@ -29,7 +29,7 @@
 	// Get record_id from user
 	String record_id = "5";
 	// Find the next image_id to use
-	String image_id = "5";
+	String image_id = "6";
 	String sql = "insert into pacs_images values ('" + record_id + "', '" + image_id + "', ?, ?, ?)";
 	FileInputStream fis = null;
 	try
