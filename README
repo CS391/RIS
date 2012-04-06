@@ -26,3 +26,10 @@ dataAnalysis
 Jake:
 reportGenerating -> Complete? Check it for yourself.
 uploading
+
+
+CITATIONS:
+Inserting blob into db: http://www.roseindia.net/tutorial/java/jsp/jspinsertblob.html
+fileupload jar: http://commons.apache.org/fileupload/
+io jar: http://commons.apache.org/io/
+Uploading file: http://srikanthtechnologies.com/articles/j2ee/fileupload.html
