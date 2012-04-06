@@ -29,8 +29,27 @@
  *  http://www.coreservlets.com/.
  *  &copy; 2000 Marty Hall; may be freely used or adapted.
  */
+%>
+ <APPLET
+ CODE="wjhk.jupload2.JUploadApplet"
+ NAME="JUpload"
+ ARCHIVE="wjhk.jupload.jar"
+ WIDTH="640"
+ HEIGHT="300"
+ MAYSCRIPT="true"
+ ALT="The java pugin must be installed.">
+<param name="postURL" value="handleApplet.jsp" />
+<!-- Optionnal, see code comments -->
+<param name="showLogWindow" value="false" />
 
+Java 1.5 or higher plugin required. 
 
+</APPLET>
+ 
+ <%
+ /*
+
+ // THIS MIGHT WORK!
  String gifLocation = "images/window.jpg";
 
     if ((gifLocation == null) ||
@@ -69,7 +88,7 @@
 
     } catch(IOException ioe) {
     }
-
+*/
 
 %>
 

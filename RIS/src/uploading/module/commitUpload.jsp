@@ -64,12 +64,12 @@
 	            pst.execute();
 
 	            conn.commit();
-		        out.println("<h3>Changes succesfully committed<h3>");
+		        out.println("<center><h3>Changes succesfully committed<h3></center>");
 		        
 	 } catch (SQLException e) {
 	      if (conn != null) {
 	        conn.rollback();
-	        out.println("<h3>ROLLBACK: Changes not committed<h3>");
+	        out.println("<center><h3>ROLLBACK: Changes not committed<h3></center>");
 	      }
 	      e.printStackTrace();
 	    }
@@ -103,22 +103,49 @@
 	 	 
 	%>
 	<form name="UPLOAD" method="POST" enctype="multipart/form-data"
-		action="">
+		action="uploadFromLocal.jsp">
 		<table>
 			<tr>
 				<th>File path:</th>
-				<td><input name="FILEPATH" type="file" size="30"></input>
-				</td>
+				<td><input name="FILEPATH" type="file" size="30"></input></td>
 			</tr>
 			<tr>
 				<td ALIGN=CENTER COLSPAN="2"><input type="submit"
-					name=".submit" value="Upload">
-				</td>
+					name=".submit" value="Upload"></td>
 			</tr>
 		</table>
 	</form>
+
+
+	<table border="0" cellpadding="7" cellspacing="0" width="640">
+	<tbody><tr><td colspan="2" align="center"><font color="red" face="arial" size="+1"><b><u>JUpload - File Upload Applet</u></b></font></td></tr>
+	<tr height="20"></tr>
+	<tr><td colspan="2" bgcolor="#3f7c98"><center><font color="#ffffff">FileUpload Applet</font></center></td></tr>
+	<tr><td colspan="2" align="center">
+	</table>
+
+
+        <APPLET
+                    CODE="wjhk.jupload2.JUploadApplet"
+                    NAME="JUpload"
+                    ARCHIVE="wjhk.jupload.jar"
+                    WIDTH="640"
+                    HEIGHT="300"
+                    MAYSCRIPT="true"
+                    ALT="The java pugin must be installed.">
+            <param name="postURL" value="handleApplet.jsp" />
+            <!-- Optionnal, see code comments -->
+            <param name="showLogWindow" value="false" />
+
+            Java 1.5 or higher plugin required. 
+
+        </APPLET>
+
+	    
+	
 	<%
-/*
+	
+	/*
 	 	OutputStream o = response.getOutputStream();
 	 	InputStream is = new FileInputStream(new File("/home/dsk03/ugrad/jabrand/Desktop/ALLIEScreenshots/21EasterEggInput.jpg"));
 	 	byte[] buf = new byte[32 * 1024]; 
