@@ -25,11 +25,11 @@
 	}
 %>
 				<TD><B><I>Userid:</I> </B></TD>
-				<TD><INPUT TYPE="text" NAME="USERID" ID="USERID" VALUE="Admin"><BR></TD>
+				<TD><INPUT TYPE="text" NAME="USERID" ID="USERID"><BR></TD>
 			</TR>
 			<TR VALIGN=TOP ALIGN=LEFT>
 				<TD><B><I>Password:</I> </B></TD>
-				<TD><INPUT TYPE="password" NAME="PASSWD" VALUE="admin"></TD>
+				<TD><INPUT TYPE="password" NAME="PASSWD"></TD>
 			</TR>
 		</TABLE>
 
