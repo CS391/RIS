@@ -230,7 +230,7 @@
 			
 			stmt = null;
 			rset = null;
-			sql = "select * from family_doctor where patient_name=\'" + userName + "\'";
+			sql = "select unique user_name from users where class='d'";
 			try
 			{
 				stmt = conn.createStatement ();
@@ -243,22 +243,18 @@
 			
 			out.println ("<br>Family Doctor<br><br><table>");
 			String doctor = ""; // INFORMATION FROM FAMILY_DOCTOR TABLE
-			String patient = "";
-			while (rset != null && rset.next ())
-			{
-				doctor = rset.getString (1).trim ();
-				patient = rset.getString (2).trim ();
-			}
+
 				out.println ("<tr>");
 					out.println ("<td>Doctor Name: </td>");
 					out.println ("<td>");
-						out.println ("<input type=\"text\" name=\"doctor\" value=\"" + doctor + "\" />");
+						out.println("<select name=\'Doctor'>");
+						while (rset.next ())
+						{
+							doctor = rset.getString(1).trim();
+							out.println("<option ID = " + doctor + ">" + doctor + "</option>");
+						}
+						out.println("</select>");
 					out.println ("</td>");
-		//		out.println ("</tr><tr>");
-		//			out.println ("<td>Patient Name: </td>");
-		//			out.println ("<td>");
-		//				out.println ("<input type=\"text\" name=\"patient\" value=\"" + patient + "\" />");
-		//			out.println ("</td>");
 				out.println ("</tr>");
 			out.println ("</table>"); // End of form
 			
@@ -309,6 +305,7 @@
 			String address = request.getParameter ("address");
 			String email = request.getParameter ("email");
 			String phone = request.getParameter ("phone");
+			String Doctor = request.getParameter ("Doctor");
 			String sql = null;
 			
 			if(!rset.next())
@@ -329,6 +326,16 @@
 			response.addCookie(cookieAddress);
 			response.addCookie(cookieEmail);
 			response.addCookie(cookiePhone);
+			try
+			{
+				stmt = conn.createStatement ();
+				rset = stmt.executeQuery (sql);
+				sql=null;
+			}
+			catch (Exception ex)
+			{
+				out.println ("<hr>" + ex.getMessage () + "<hr>");
+			}
 			}
 			else
 			{
@@ -336,7 +343,7 @@
 				"class=\'" + uClass + "\', " +
 				"date_registered=\'" + formattedDate + "\' " +
 				"where user_name=\'" + user + "\'";
-			}
+		
 			try
 			{
 				stmt = conn.createStatement ();
@@ -346,8 +353,6 @@
 			{
 				out.println ("<hr>" + ex.getMessage () + "<hr>");
 			}
-			
-			
 			stmt = null;
 			rset = null;
 			sql = "update persons set first_name=\'" + first + "\', " +
@@ -360,27 +365,52 @@
 			{
 				stmt = conn.createStatement ();
 				rset = stmt.executeQuery (sql);
+				conn.commit();
 			}
 			catch (Exception ex)
 			{
 				out.println ("<hr>" + ex.getMessage () + "<hr>");
 			}
-			
-			String doctor = request.getParameter ("doctor");
-			
+			}	
 			stmt = null;
 			rset = null;
-			sql = "update family_doctor set doctor_name=\'" + doctor + "\' " +
-				"where patient_name=\'" + user + "\'";
+			check = "select * from family_doctor where patient_name = '" + user + "'";
+			try
+			{
+				stmt = conn.createStatement ();
+				rset = stmt.executeQuery (check);
+			}
+			catch (Exception ex)
+			{
+				out.println ("<hr>" + ex.getMessage () + "<hr>");
+			}
+			if(!rset.next())
+			{
+				sql = "insert into family_doctor values('" + Doctor + "', " +
+				"'" + user + "')";
+			}
+			else
+			{
+				String doc = rset.getString(1);
+				if(doc.equals(Doctor)){
+					
+				}
+				else{
+				sql = "update family_doctor set doctor_name='" + Doctor + "' " +
+					"where patient_name='" + user + "'";
+				}
+			}
 			try
 			{
 				stmt = conn.createStatement ();
 				rset = stmt.executeQuery (sql);
+				conn.commit();
 			}
 			catch (Exception ex)
 			{
 				out.println ("<hr>" + ex.getMessage () + "<hr>");
 			}
+			
 			
 			out.println ("Information submitted!"); // Get parameters and put into db
 			
@@ -411,6 +441,7 @@
 			{
 				stmt = conn.createStatement ();
 				rset = stmt.executeQuery (sql);
+				conn.commit();
 			}
 			catch (Exception ex)
 			{
