@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>Report Generator</title>
-<link rel="stylesheet" type="text/css" href="/391Project/src/CSS/datepicker.css" />
-<script type="text/javascript" src="/391Project/src/javascript/datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/RIS/src/CSS/datepicker.css" />
+<script type="text/javascript" src="/RIS/src/javascript/datepicker.js"></script>
 </head>
 
 <body>

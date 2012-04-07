@@ -57,31 +57,38 @@
 		<tr>
 
 <%
-    while(rset.next())
+	try
+	{
+	   stmt = conn.createStatement ();
+	   rset = stmt.executeQuery (reportQuery);
+	} 
+	catch (Exception ex)
+	{
+	   out.println ("<hr>" + ex.getMessage () + "<hr>");
+	}
+    while (rset.next ())
     {
 %>
 		<tr>
 			<td width="100">Patient</td>
 <%
-    	for(int j=1;j<=NUM_COLS-1;j++)
+    	for (int j = 1; j < NUM_COLS; j++)
     	{
-    	    String value = rset.getString(j);
+    	    String value = rset.getString (j);
 %>
 			<td width="150"><%=value%></td>
 <%
     	}
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date convertedDate = dateFormat.parse(rset.getString(NUM_COLS));        
-        SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-        String formattedDate = finalFormat.format(convertedDate);
+        String formattedDate = connect.connect.getDateStringFromDateString (rset.getString (NUM_COLS));
 %>
 			<td width="150"><%=formattedDate%></td>
 		</tr>
 <%
     	}
 	}
-	else{
-		out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
+	else
+	{
+		out.print ("You are not allowed to view this page. Log in as a user with the appropriate class");
 	}
 %>
 	</table>
