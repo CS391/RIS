@@ -44,6 +44,52 @@ if(request.getParameter("UPDATE") != null)
 		int update2=0;
 		if(passwd.equals(truepwd))
 		{
+			Statement stmt = null;
+			ResultSet rset = null;
+			String check = "select * from persons where user_name =" + "'" + userName + "'";
+			try
+			{
+				stmt = conn.createStatement ();
+				rset = stmt.executeQuery (check);
+			}
+			catch (Exception ex)
+			{
+				out.println ("<hr>" + ex.getMessage () + "<hr>");
+			}
+			String sql = null;
+			
+			if(!rset.next())
+			{
+			sql = "insert into persons values(\'" + userName + "\', " +
+				"\'" + updateFirstName + "\', " +
+				"\'" + updateLastName + "\', " +
+				"\'" + updateAddress + "\', " +
+				"\'" + updateEmail + "\', " + 
+				"'" + updatePhone + "\')";
+			Cookie cookieFirstName = new Cookie("first_name", updateFirstName);
+			Cookie cookieLastName = new Cookie("last_name", updateLastName);
+			Cookie cookieAddress = new Cookie("address", updateAddress);
+			Cookie cookieEmail = new Cookie("email", updateEmail);
+			Cookie cookiePhone = new Cookie("phone", updatePhone);
+			response.addCookie(cookieFirstName);
+			response.addCookie(cookieLastName);
+			response.addCookie(cookieAddress);
+			response.addCookie(cookieEmail);
+			response.addCookie(cookiePhone);
+			try
+			{
+				stmt = conn.createStatement ();
+				rset = stmt.executeQuery (sql);
+				conn.commit();
+				out.println("Your information has been added.")
+			}
+			catch (Exception ex)
+			{
+				out.println ("<hr>" + ex.getMessage () + "<hr>");
+			}			
+			}
+			else
+			{
 	
 		//update the persons table with the given information
 		PreparedStatement UpdateInfo = conn.prepareStatement("UPDATE PERSONS SET FIRST_NAME= ?," +
@@ -84,7 +130,7 @@ if(request.getParameter("UPDATE") != null)
 			out.println("<hr> Error processing your information</hr>");
 		}
 	}
-
+		}
 	else
 	{
 		out.println("<hr>Wrong Password! Your Information has not been changed.</hr>");

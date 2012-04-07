@@ -13,9 +13,6 @@
 		//get the user input from the login page
 		String userName = (request.getParameter("USERID")).trim();
 		String passwd = (request.getParameter("PASSWD")).trim();
-		String CCID = (String) session.getAttribute("CCID");
-		String PASS = (String) session.getAttribute("PASS");
-		connect.connect.setLogin(CCID,PASS);
 		//connect to the database
 		Connection conn = connect.connect.dbConnect ();
 

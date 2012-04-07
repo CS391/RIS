@@ -11,14 +11,36 @@
 	<%
 	//get all the cookies and assign them to strings
 	classname =  (String)session.getAttribute("class");
+	String user_name = "";
+	String first_name = "";
+	String last_name = "";
+	String address = "";
+	String email = "";
+	String phone = "";
+	
 	if(classname != null)
 	{
-	String user_name = (String)session.getAttribute("user_name");
-	String first_name = getcookieFirstName.getValue();
-	String last_name = getcookieLastName.getValue();
-	String address = getcookieAddress.getValue();
-	String email = getcookieEmail.getValue();
-	String phone = getcookiePhone.getValue();
+	user_name = (String)session.getAttribute("user_name");
+	if(getcookieFirstName!=null)
+	{
+	first_name = getcookieFirstName.getValue();
+	}
+	if(getcookieLastName!=null)
+	{
+	last_name = getcookieLastName.getValue();
+	}
+	if(getcookieAddress!=null)
+	{
+	address = getcookieAddress.getValue();
+	}
+	if(getcookieEmail!=null)
+	{
+	email = getcookieEmail.getValue();
+	}
+	if(getcookiePhone!=null)
+	{
+	phone = getcookiePhone.getValue();
+	}
 %>
 	<P>To update your information input it into the correct fields and
 		press update.</P>

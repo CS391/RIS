@@ -24,14 +24,17 @@
 	String className = (String) session.getAttribute("class");
 		//check to see if the user can access this page
 	boolean allowed = connect.CheckClass.checkClass("report_generating", className);
-	if(allowed){
+	if(allowed)
+	{
        String diagnosis_sql = "SELECT unique diagnosis FROM radiology_record order by upper(diagnosis)";
        String prescribing_date = "SELECT unique prescribing_date FROM radiology_record order by prescribing_date"; 
-       try{
+       try
+       {
            stmt = conn.createStatement();
            rset = stmt.executeQuery(diagnosis_sql);
        } 
-       catch (Exception ex){
+       catch (Exception ex)
+       {
            out.println("<hr>" + ex.getMessage() + "<hr>");
        }
        %>
@@ -41,7 +44,8 @@
 		<select name="DIAGNOSIS">
 			<%
        String diagnosis = "";
-       while(rset != null && rset.next()){
+       while(rset != null && rset.next())
+       {
            diagnosis = rset.getString(1).trim();
            
            out.println("<option value=\"" + diagnosis + "\">" + diagnosis + "</option>");
@@ -55,27 +59,28 @@
 
 		<%
 			
-       try{
+		try
+		{
            stmt = conn.createStatement();
            rset = stmt.executeQuery(prescribing_date);
-       } 
-       catch (Exception ex){
+		} 
+		catch (Exception ex){
            out.println("<hr>" + ex.getMessage() + "<hr>");
-       }
+		}
 				out.println ("<td><input name=\"STARTDATE\"></td>"); 
 				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('STARTDATE', false, 'dmy', '-');\"></td>");
 	%>
 		<br>
 		<H5>Report End Time</H5>
 		<%
-    out.print("Please indicate the end time of the report: <br>");
-		       try{
+    			out.print("Please indicate the end time of the report: <br>");
+		        try{
 		           stmt = conn.createStatement();
 		           rset = stmt.executeQuery(prescribing_date);
-		       } 
-		       catch (Exception ex){
+		        } 
+		        catch (Exception ex){
 		           out.println("<hr>" + ex.getMessage() + "<hr>");
-		       }
+		        }
 		       
 				out.println ("<td><input name=\"ENDDATE\"></td>"); 
 				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('ENDDATE', false, 'dmy', '-');\"></td>");
@@ -85,13 +90,17 @@
 	</FORM>
 	<%   
 
-try{
+	try
+	{
     conn.close();
-  } catch (Exception ex){
+  	} 
+	catch (Exception ex)
+	{
       out.println("<hr>" + ex.getMessage() + "<hr>");
-  }
+ 	}
 	}
-	else{
+	else
+	{
 		out.print("You are not allowed to view this page. Log in as a user with the appropriate class");
 	}
 %>

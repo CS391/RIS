@@ -293,14 +293,11 @@
 			
 			Statement stmt = null;
 			ResultSet rset = null;
-			String sql = "update users set password=\'" + pass + "\', " +
-				"class=\'" + uClass + "\', " +
-				"date_registered=\'" + formattedDate + "\' " +
-				"where user_name=\'" + user + "\'";
+			String check = "select * from persons where user_name =" + "'" + user + "'";
 			try
 			{
 				stmt = conn.createStatement ();
-				rset = stmt.executeQuery (sql);
+				rset = stmt.executeQuery (check);
 			}
 			catch (Exception ex)
 			{
@@ -312,6 +309,44 @@
 			String address = request.getParameter ("address");
 			String email = request.getParameter ("email");
 			String phone = request.getParameter ("phone");
+			String sql = null;
+			
+			if(!rset.next())
+			{
+			sql = "insert into persons values(\'" + user + "\', " +
+				"\'" + first + "\', " +
+				"\'" + last + "\', " +
+				"\'" + address + "\', " +
+				"\'" + email + "\', " + 
+				"'" + phone + "\')";
+			Cookie cookieFirstName = new Cookie("first_name", first);
+			Cookie cookieLastName = new Cookie("last_name", last);
+			Cookie cookieAddress = new Cookie("address", address);
+			Cookie cookieEmail = new Cookie("email", email);
+			Cookie cookiePhone = new Cookie("phone", phone);
+			response.addCookie(cookieFirstName);
+			response.addCookie(cookieLastName);
+			response.addCookie(cookieAddress);
+			response.addCookie(cookieEmail);
+			response.addCookie(cookiePhone);
+			}
+			else
+			{
+			sql = "update users set password=\'" + pass + "\', " +
+				"class=\'" + uClass + "\', " +
+				"date_registered=\'" + formattedDate + "\' " +
+				"where user_name=\'" + user + "\'";
+			}
+			try
+			{
+				stmt = conn.createStatement ();
+				rset = stmt.executeQuery (sql);
+			}
+			catch (Exception ex)
+			{
+				out.println ("<hr>" + ex.getMessage () + "<hr>");
+			}
+			
 			
 			stmt = null;
 			rset = null;

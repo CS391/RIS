@@ -1,19 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <html>
-
 <head>
 <title>OLAP Report</title>
 </head>
-
 <body>
 <H1>
 	<CENTER>OLAP Report</CENTER>
 </H1>
 
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.SimpleDateFormat"%>
 <% 
 	//connect the the database
 	Connection conn = connect.connect.dbConnect ();
@@ -45,30 +41,30 @@
 					"FROM RADIOLOGY_RECORD " +
 					"GROUP BY rollup " +
 					"(PATIENT_NAME, TEST_TYPE, extract (year from test_date))";
-				%>
+%>
 				<td width="200"><B>Year</B></td>
 				<tr>
-	<%
+<%
 				}
 				else if(timePeriod.equals("Month")){
 				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), extract (month from test_date) " +
 					"FROM RADIOLOGY_RECORD " +
 					"GROUP BY rollup " +
 					"(PATIENT_NAME, TEST_TYPE, extract (month from test_date))";
-				%>
+%>
 				<td width="200"><B>Number of Month</B></td>
 				<tr>
-	<%
+<%
 				}
 				else if(timePeriod.equals("Week")){
 				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), TO_CHAR((TEST_DATE),'WW') " +
 					"FROM RADIOLOGY_RECORD " +
 					"GROUP BY rollup " +
         			"(PATIENT_NAME, TEST_TYPE, to_char((TEST_DATE),'WW'))";
-				%>
+%>
 				<td width="200"><B>Number of Week</B></td>
 				<tr>
-	<%
+<%
 				}
 		}
 		
@@ -82,7 +78,7 @@
 			"WHERE patient_name =" + "'" + patientName + "'" +
 			" GROUP BY rollup " +
 			"(PATIENT_NAME, TEST_TYPE, extract (YEAR from test_date))";
-			%>
+%>
 			<td width="200"><B>Year</B></td>
 			<tr>
 <%
@@ -93,10 +89,10 @@
 				"WHERE patient_name =" + "'" + patientName + "'" +
 				" GROUP BY rollup " +
 				"(PATIENT_NAME, TEST_TYPE, extract (Month from test_date))";
-				%>
+%>
 				<td width="200"><B>Number of Month</B></td>
 				<tr>
-	<%
+<%
 				}
 			else if(timePeriod.equals("Week")){
 				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), TO_CHAR((TEST_DATE),'WW') " +
@@ -104,10 +100,10 @@
 					"WHERE patient_name =" + "'" + patientName + "'" +
 					"GROUP BY rollup " +
         			"(PATIENT_NAME, TEST_TYPE, to_char((TEST_DATE),'WW'))";
-				%>
+%>
 				<td width="200"><B>Number of Week</B></td>
 				<tr>
-	<%
+<%
 				}
 		}
 
