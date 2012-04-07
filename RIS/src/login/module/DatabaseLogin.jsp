@@ -15,9 +15,8 @@
 				<%
 				String CCID = (String) session.getAttribute("CCID");
 				String PASS = (String) session.getAttribute("PASS");
-				if(CCID!=null && PASS!=null){
 				connect.connect.setLogin(CCID,PASS);
-				}
+
 	//if the password was wrong display to the user the wrong password or userId was used
 	String wrongPass = (String) session.getAttribute("wrongDBPass");
 	if(wrongPass != null)
