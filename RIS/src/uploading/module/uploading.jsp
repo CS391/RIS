@@ -151,14 +151,14 @@
 	    valueToSet = request.getParameter("PRESCRIBINGDATE");
 	}
 	
-	out.println ("<input name=\"PRESCRIBINGDATE\">"); 
+	out.println ("<input name=\"PRESCRIBINGDATE\" readonly=\"readonly\" onfocus=\"this.blur();\">"); 
 	out.println ("<input type=button value=\"select\" onclick=\"displayDatePicker('PRESCRIBINGDATE', false, 'dmy', '-');\">");
 	out.println("<H4>Enter Test Date</H4>");
 	if(returned){
 	    valueToSet = request.getParameter("TESTDATE");
 	}
 
-	out.println ("<input name=\"TESTDATE\">"); 
+	out.println ("<input name=\"TESTDATE\" readonly=\"readonly\" onfocus=\"this.blur();\">"); 
 	out.println ("<input type=button value=\"select\" onclick=\"displayDatePicker('TESTDATE', false, 'dmy', '-');\">");
 	out.println("<H4>Enter Diagnosis</H4>");
 	if(returned){

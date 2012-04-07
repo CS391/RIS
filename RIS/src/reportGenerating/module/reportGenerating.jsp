@@ -67,7 +67,7 @@
 		catch (Exception ex){
            out.println("<hr>" + ex.getMessage() + "<hr>");
 		}
-				out.println ("<td><input name=\"STARTDATE\"></td>"); 
+				out.println ("<td><input name=\"STARTDATE\" readonly=\"readonly\" onfocus=\"this.blur();\"></td>"); 
 				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('STARTDATE', false, 'dmy', '-');\"></td>");
 	%>
 		<br>
@@ -82,7 +82,7 @@
 		           out.println("<hr>" + ex.getMessage() + "<hr>");
 		        }
 		       
-				out.println ("<td><input name=\"ENDDATE\"></td>"); 
+				out.println ("<td><input name=\"ENDDATE\" readonly=\"readonly\" onfocus=\"this.blur();\"></td>"); 
 				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('ENDDATE', false, 'dmy', '-');\"></td>");
 		       
 	%>
