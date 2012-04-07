@@ -26,48 +26,110 @@
 		Statement OLAP = null;
 		ResultSet OLAPset = null;
 	
-		String reportType = (request.getParameter("formselector")).trim();
-		out.println(reportType);
-		if(reportType.equals("2"))
-		{
-			String patientName = (request.getParameter("Patient")).trim();
-			out.println(patientName);
-		}
-		String timePeriod = (request.getParameter("Time")).trim();
-		out.println(timePeriod);
-	
-		//OLAP query
-		String OLAPquery =	"SELECT PATIENT_NAME, TEST_TYPE, TEST_DATE " + 
-							"FROM RADIOLOGY_RECORD " + 
-							"GROUP BY ROLLUP (PATIENT_NAME, TEST_TYPE, TEST_DATE) ";
+		String OLAPQuery="";
 		
-		try
-		{
-		        OLAP = conn.createStatement(
-		                ResultSet.TYPE_SCROLL_INSENSITIVE,
-		                ResultSet.CONCUR_READ_ONLY);
-				OLAPset = OLAP.executeQuery(OLAPquery);
-		}
-		catch(Exception ex)
-		{
-				out.println("<hr>Error processing the Analysis Report.<hr>");
-		}
-	    int NUM_COLS = 3;
-	    OLAPset.last();
-	    int NUM_ROWS = OLAPset.getRow();
-	    OLAPset.beforeFirst();
+		String reportType = (request.getParameter("formselector")).trim();
+		String timePeriod = (request.getParameter("Time")).trim();
+		
 %>
 		<table>
 			<tr>
 				<td width="200"><B>Patient Name</B></td>
 				<td width="200"><B>Test Type</B></td>
-				<td width="200"><B>Test Date</B></td>
+				<td width="200"><B>Number of Records</B></td>
+
+<%
+		if(reportType.equals("1")){
+			if(timePeriod.equals("Year")){
+				OLAPQuery =	"SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), extract (year from test_date) " +
+					"FROM RADIOLOGY_RECORD " +
+					"GROUP BY rollup " +
+					"(PATIENT_NAME, TEST_TYPE, extract (year from test_date))";
+				%>
+				<td width="200"><B>Year</B></td>
+				<tr>
+	<%
+				}
+				else if(timePeriod.equals("Month")){
+				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), extract (month from test_date) " +
+					"FROM RADIOLOGY_RECORD " +
+					"GROUP BY rollup " +
+					"(PATIENT_NAME, TEST_TYPE, extract (month from test_date))";
+				%>
+				<td width="200"><B>Number of Month</B></td>
+				<tr>
+	<%
+				}
+				else if(timePeriod.equals("Week")){
+				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), TO_CHAR((TEST_DATE),'WW') " +
+					"FROM RADIOLOGY_RECORD " +
+					"GROUP BY rollup " +
+        			"(PATIENT_NAME, TEST_TYPE, to_char((TEST_DATE),'WW'))";
+				%>
+				<td width="200"><B>Number of Week</B></td>
+				<tr>
+	<%
+				}
+		}
+		
+		if(reportType.equals("2"))
+		{
+			String patientName = (request.getParameter("Patient")).trim();
+
+			if(timePeriod.equals("Year")){
+			OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), extract (YEAR from test_date) " +
+			"FROM RADIOLOGY_RECORD " +
+			"WHERE patient_name =" + "'" + patientName + "'" +
+			" GROUP BY rollup " +
+			"(PATIENT_NAME, TEST_TYPE, extract (YEAR from test_date))";
+			%>
+			<td width="200"><B>Year</B></td>
 			<tr>
 <%
+			}
+			if(timePeriod.equals("Month")){
+				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), extract (Month from test_date) " +
+				"FROM RADIOLOGY_RECORD " +
+				"WHERE patient_name =" + "'" + patientName + "'" +
+				" GROUP BY rollup " +
+				"(PATIENT_NAME, TEST_TYPE, extract (Month from test_date))";
+				%>
+				<td width="200"><B>Number of Month</B></td>
+				<tr>
+	<%
+				}
+			else if(timePeriod.equals("Week")){
+				OLAPQuery = "SELECT PATIENT_NAME, TEST_TYPE, count(TEST_DATE), TO_CHAR((TEST_DATE),'WW') " +
+					"FROM RADIOLOGY_RECORD " +
+					"WHERE patient_name =" + "'" + patientName + "'" +
+					"GROUP BY rollup " +
+        			"(PATIENT_NAME, TEST_TYPE, to_char((TEST_DATE),'WW'))";
+				%>
+				<td width="200"><B>Number of Week</B></td>
+				<tr>
+	<%
+				}
+		}
+
+		try
+		{
+		        OLAP = conn.createStatement(
+		                ResultSet.TYPE_SCROLL_INSENSITIVE,
+		                ResultSet.CONCUR_READ_ONLY);
+				OLAPset = OLAP.executeQuery(OLAPQuery);
+		}
+		catch(Exception ex)
+		{
+				out.println("<hr>Error processing the Analysis Report.<hr>");
+		}
+	    int NUM_COLS = 4;
+	    OLAPset.last();
+	    int NUM_ROWS = OLAPset.getRow();
+	    OLAPset.beforeFirst();
 		try
 		{
 	        OLAP = conn.createStatement();
-			OLAPset = OLAP.executeQuery(OLAPquery);
+			OLAPset = OLAP.executeQuery(OLAPQuery);
 		}
 		catch(Exception ex)
 		{
@@ -78,6 +140,7 @@
 %>
 			<tr>
 <%
+			if(OLAPset.getInt(NUM_COLS)!=0){
 			//print out all the values in the result set
 	    	for (int j = 1; j < NUM_COLS; j++)
 	    	{
@@ -88,23 +151,12 @@
 				<td width="200"><%=value%></td>
 <%
 	    	}
-			String formattedDate = ""; 
-			if (OLAPset.getString(NUM_COLS) != null)
-	    		formattedDate = connect.connect.getDateStringFromDateString (OLAPset.getString(NUM_COLS).trim());
-// 	    	String formattedDate;
-// 	    	if(date == null){
-// 	    		formattedDate = "null";
-// 	    	}
-// 	    	else{
-// 	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-// 	        Date convertedDate = dateFormat.parse(date);        
-// 	        SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-// 	        formattedDate = finalFormat.format(convertedDate);
-// 	    	}
+			int formattedDate = OLAPset.getInt(NUM_COLS); 
 %>
 			<td width="200"><%=formattedDate%></td>
 			</tr>
 <%
+			}
 	    }
 %>
 	</table>

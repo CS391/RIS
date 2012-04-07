@@ -7,18 +7,18 @@ import java.util.Date;
 
 public class connect
 {
-	private String ccid;
-	private String pass;
+	private static String ccid;
+	private static String pass;
 	
 	public connect ()
 	{
 		
 	}
 	
-	public setLogin (String ccid, String pass)
+	public static void setLogin (String c, String p)
 	{
-		this.ccid = ccid;
-		this.pass = pass;
+		ccid = c;
+		pass = p;
 	}
 	
 	public static Connection dbConnect ()

@@ -2,6 +2,8 @@
 <html>
 <head>
 <title>Report Generator</title>
+<link rel="stylesheet" type="text/css" href="/391Project/src/CSS/datepicker.css" />
+<script type="text/javascript" src="/391Project/src/javascript/datepicker.js"></script>
 </head>
 
 <body>
@@ -51,7 +53,7 @@
 		</select> 
 		<br>
 		<H5>Report Start Time</H5>
-		<select name="STARTDATE">
+
 			<%
 			
        try{
@@ -61,35 +63,13 @@
        catch (Exception ex){
            out.println("<hr>" + ex.getMessage() + "<hr>");
        }
-		String startDate = "";
-       while(rset != null && rset.next()){
-//            startDate = rset.getString(1).trim();
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            Date convertedDate = null;
-//            try
-//            {
-//            	convertedDate = dateFormat.parse(startDate);
-//            }
-//            catch (Exception e)
-//            {
-//         	   out.println ("<hr>" + e.getMessage () + "<hr>");
-//            }
-//            SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-//            startDate = finalFormat.format(convertedDate);
-// 			startDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
-			startDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
-           out.println("<option value=\"" + startDate + "\">" + startDate + "</option>");
-		}
-//        rset.beforeFirst();
+				out.println ("<td><input name=\"STARTDATE\"></td>"); 
+				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('STARTDATE', false, 'dmy', '-');\"></td>");
 	%>
-
-		</select> 
 		<br>
 		<H5>Report End Time</H5>
-
-		<select name="ENDDATE">
 			<%
-    out.print("<br>Please indicate the end time of the report: <br>");
+    out.print("Please indicate the end time of the report: <br>");
 		       try{
 		           stmt = conn.createStatement();
 		           rset = stmt.executeQuery(prescribing_date);
@@ -97,27 +77,11 @@
 		       catch (Exception ex){
 		           out.println("<hr>" + ex.getMessage() + "<hr>");
 		       }
-       String endDate = "";
-       while(rset != null && rset.next()){
-//            endDate = rset.getString(1).trim();
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            Date convertedDate = null;
-//            try
-//            {
-//            	convertedDate = dateFormat.parse(startDate);
-//            }
-//            catch (Exception e)
-//            {
-//         	   out.println ("<hr>" + e.getMessage () + "<hr>");
-//            }     
-//            SimpleDateFormat finalFormat = new SimpleDateFormat("dd-MMM-yy");
-//            endDate = finalFormat.format(convertedDate);
-			endDate = connect.connect.getDateStringFromDateString (rset.getString(1).trim());
-           out.println("<option value=\"" + endDate + "\">" + endDate + "</option>");
-		}
-//        rset.beforeFirst();
+		       
+				out.println ("<td><input name=\"ENDDATE\"></td>"); 
+				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('ENDDATE', false, 'dmy', '-');\"></td>");
+		       
 	%>
-		</select> 
 		<br> 
 		<br> 
 		<INPUT TYPE="submit" NAME="SUBMIT" VALUE="Select">

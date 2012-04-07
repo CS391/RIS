@@ -18,14 +18,18 @@ How to include Date Picker:
 			<input name=\"YetAnotherDate\">
 			<input type=button value=\"select\" onclick=\"displayDatePicker('YetAnotherDate', false, 'dmy', '-');\">
 		</form>
+		
+
 
 Jordan:
 login -> Complete? Check it for yourself.
-dataAnalysis
+dataAnalysis -> Complete? Check it for yourself.
+Put date pickers in report Generating if time permits. -> Complete? Check it for yourself.
+Hard coded login for the database. -> Complete? Check it for yourself.
 
 Jake:
 reportGenerating -> Complete? Check it for yourself.
-uploading
+uploading  -> Complete? Check it for yourself.
 
 
 CITATIONS:
