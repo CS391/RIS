@@ -7,9 +7,18 @@ import java.util.Date;
 
 public class connect
 {
+	private String ccid;
+	private String pass;
+	
 	public connect ()
 	{
 		
+	}
+	
+	public setLogin (String ccid, String pass)
+	{
+		this.ccid = ccid;
+		this.pass = pass;
 	}
 	
 	public static Connection dbConnect ()
@@ -32,7 +41,7 @@ public class connect
 		try
 		{
 			//establish the connection 
-			conn = DriverManager.getConnection (dbstring,"jletourn","JL3492916");
+			conn = DriverManager.getConnection (dbstring, ccid, pass);
 			conn.setAutoCommit (false);
 		}
 		catch (Exception ex)
