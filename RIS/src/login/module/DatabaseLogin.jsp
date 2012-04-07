@@ -29,12 +29,12 @@
 	}
 %>
 				<TD><B><I>CCID:</I> </B></TD>
-				<TD><INPUT TYPE="text" NAME="CCID" ID="CCID" VALUE="jletourn"><BR>
+				<TD><INPUT TYPE="text" NAME="CCID" ID="CCID"><BR>
 				</TD>
 			</TR>
 			<TR VALIGN=TOP ALIGN=LEFT>
 				<TD><B><I>Password:</I> </B></TD>
-				<TD><INPUT TYPE="password" NAME="PASS" VALUE="JL3492916"></TD>
+				<TD><INPUT TYPE="password" NAME="PASS"></TD>
 			</TR>
 		</TABLE>
 		<INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">

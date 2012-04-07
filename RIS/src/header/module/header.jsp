@@ -48,6 +48,7 @@
         if(classname == null){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Login\" ONCLICK=\"Login_button()\">");//value is login when not logged in
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Help\" ONCLICK=\"HELP_button()\">");
         }
         //display the buttons that the administrator class can access
         else if(classname.equals("a")){
@@ -59,6 +60,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Data Analysis\" ONCLICK=\"DA_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");//value is logout when logged in
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Help\" ONCLICK=\"HELP_button()\">");
         }
         //diplay the buttons that the patient class can access
         else if(classname.equals("p")){
@@ -66,6 +68,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");//value is logout when logged in
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Help\" ONCLICK=\"HELP_button()\">");
         }
         //display the buttons that the doctor class can access
         else if(classname.equals("d")){
@@ -73,6 +76,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");//value is logout when logged in
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Help\" ONCLICK=\"HELP_button()\">");
         }
         //display the buttons that the radiologist class can access
         else if(classname.equals("r")){
@@ -81,6 +85,7 @@
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Settings\" ONCLICK=\"US_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"LogOut\" ONCLICK=\"LogOut_button()\">");//value is logout when logged in
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Help\" ONCLICK=\"HELP_button()\">");
         }
         	
         	%>
@@ -122,6 +127,10 @@
         function LogOut_button()
         {
         	parent.location='/RIS/src/login/module/logout.jsp'
+        }   
+        function HELP_button()
+        {
+        	parent.location='/RIS/src/Help/module/help.jsp'
         }   
     </SCRIPT>
 </BODY>
