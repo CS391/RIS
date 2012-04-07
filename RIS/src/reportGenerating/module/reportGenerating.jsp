@@ -50,11 +50,10 @@
        
 	%>
 
-		</select> 
-		<br>
+		</select> <br>
 		<H5>Report Start Time</H5>
 
-			<%
+		<%
 			
        try{
            stmt = conn.createStatement();
@@ -68,7 +67,7 @@
 	%>
 		<br>
 		<H5>Report End Time</H5>
-			<%
+		<%
     out.print("Please indicate the end time of the report: <br>");
 		       try{
 		           stmt = conn.createStatement();
@@ -82,9 +81,7 @@
 				out.println ("<td><input type=button value=\"select\" onclick=\"displayDatePicker('ENDDATE', false, 'dmy', '-');\"></td>");
 		       
 	%>
-		<br> 
-		<br> 
-		<INPUT TYPE="submit" NAME="SUBMIT" VALUE="Select">
+		<br> <br> <INPUT TYPE="submit" NAME="SUBMIT" VALUE="Select">
 	</FORM>
 	<%   
 

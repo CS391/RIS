@@ -13,17 +13,30 @@
 	<P>This is the login to connect to the database.</P>
 	<TABLE>
 		<TR VALIGN=TOP ALIGN=LEFT>
+<%
+
+	//if the password was wrong display to the user the wrong password or userId was used
+	String wrongPass = (String) session.getAttribute("wrongDBPass");
+	if(wrongPass != null)
+	{
+		if(wrongPass.equals("true"))
+		{
+		out.println("<B style=\"color:red;\"><I>Wrong Password or User Id</I></B>");
+		session.removeAttribute("wrongDBPass");
+		}
+	}
+%>
 			<TD><B><I>CCID:</I>
 			</B>
 			</TD>
-			<TD><INPUT TYPE="text" NAME="CCID" VALUE="userid"><BR>
+			<TD><INPUT TYPE="text" NAME="CCID"><BR>
 			</TD>
 		</TR>
 		<TR VALIGN=TOP ALIGN=LEFT>
 			<TD><B><I>Password:</I>
 			</B>
 			</TD>
-			<TD><INPUT TYPE="password" NAME="PASS" VALUE="password">
+			<TD><INPUT TYPE="password" NAME="PASS">
 			</TD>
 		</TR>
 	</TABLE>

@@ -88,7 +88,7 @@
     <SCRIPT LANGUAGE="JavaScript">
         function Login_button()
         {
-        	parent.location='/RIS/src/login/module/login.jsp'
+        	parent.location='/RIS/src/login/module/DatabaseLogin.jsp'
         }    
         function UM_button()
         {
