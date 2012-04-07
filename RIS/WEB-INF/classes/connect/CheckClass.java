@@ -56,11 +56,7 @@ public class CheckClass {
 		}
 		//if administrator, do not allow to the following pages
 		if(className.equals("a")){
-			if(module.equals("uploading")){
-				return false;
-			}
-		}
-		else{
+
 			return true;
 		}
 		return false;

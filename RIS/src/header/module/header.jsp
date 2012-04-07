@@ -52,6 +52,7 @@
         //display the buttons that the administrator class can access
         else if(classname.equals("a")){
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Home\" ONCLICK=\"Home_button()\">");
+        	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Uploading\" ONCLICK=\"Uploading_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"User Management\" ONCLICK=\"UM_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Report Generating\" ONCLICK=\"Report_button()\">");
         	out.println("<INPUT TYPE=\"BUTTON\" VALUE=\"Search\" ONCLICK=\"Search_button()\">");
