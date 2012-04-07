@@ -67,3 +67,11 @@ CREATE TABLE pacs_images (
    PRIMARY KEY(record_id,image_id),
    FOREIGN KEY(record_id) REFERENCES radiology_record
 );
+
+DROP INDEX description;
+DROP INDEX patient_name;
+DROP INDEX diagnosis;
+
+CREATE INDEX description ON radiology_record(description) INDEXTYPE IS CTXSYS.CONTEXT PARAMETERS ('SYNC (ON COMMIT)');
+CREATE INDEX patient_name ON radiology_record(patient_name) INDEXTYPE IS CTXSYS.CONTEXT PARAMETERS ('SYNC (ON COMMIT)');
+CREATE INDEX diagnosis ON radiology_record(diagnosis) INDEXTYPE IS CTXSYS.CONTEXT PARAMETERS ('SYNC (ON COMMIT)');

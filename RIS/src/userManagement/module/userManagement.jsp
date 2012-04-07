@@ -39,7 +39,7 @@
 				out.println ("<select name=\"USER\">");
 			
 			String result = "";
-			while(rset != null && rset.next ())
+			while (rset != null && rset.next ())
 			{
 				result = rset.getString (1).trim ();
 				out.println ("<option value=\"" + result + "\">" + result + "</option>");
