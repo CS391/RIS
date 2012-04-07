@@ -8,7 +8,6 @@
 <CENTER>
 	<H1>Database Connection</H1>
 </CENTER>
-
 <FORM NAME="LoginForm" ACTION="Databaseloggedin.jsp" METHOD="post">
 	<P>This is the login to connect to the database.</P>
 	<TABLE>
@@ -29,7 +28,7 @@
 			<TD><B><I>CCID:</I>
 			</B>
 			</TD>
-			<TD><INPUT TYPE="text" NAME="CCID"><BR>
+			<TD><INPUT TYPE="text" NAME="CCID" ID="CCID"><BR>
 			</TD>
 		</TR>
 		<TR VALIGN=TOP ALIGN=LEFT>
@@ -42,6 +41,13 @@
 	</TABLE>
 	<INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">
 </FORM>
+
+<script
+	type="text/javascript"
+	language="javascript">
+	document.getElementById("CCID").focus();
+</script>
+
 <HR>
 </BODY>
 </HTML>

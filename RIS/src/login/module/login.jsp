@@ -7,7 +7,6 @@
 	<CENTER>
 		<H1>Radiology Information System</H1>
 	</CENTER>
-
 	<FORM NAME="LoginForm" ACTION="loggedin.jsp" METHOD="post">
 		<P>To login successfully, you need to submit a valid user-id and
 			password</P>
@@ -28,7 +27,7 @@
 	}
 %>
 				<TD><B><I>Userid:</I> </B></TD>
-				<TD><INPUT TYPE="text" NAME="USERID"><BR></TD>
+				<TD><INPUT TYPE="text" NAME="USERID" ID="USERID"><BR></TD>
 			</TR>
 			<TR VALIGN=TOP ALIGN=LEFT>
 				<TD><B><I>Password:</I> </B></TD>
@@ -38,6 +37,11 @@
 
 		<INPUT TYPE="submit" NAME="Submit" VALUE="LOGIN">
 	</FORM>
+<script
+	type="text/javascript"
+	language="javascript">
+	document.getElementById("USERID").focus();
+</script>
 	<HR>
 </BODY>
 </HTML>
