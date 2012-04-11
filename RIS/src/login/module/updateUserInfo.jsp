@@ -81,7 +81,7 @@ if(request.getParameter("UPDATE") != null)
 				stmt = conn.createStatement ();
 				rset = stmt.executeQuery (sql);
 				conn.commit();
-				out.println("Your information has been added.")
+				out.println("Your information has been added.");
 			}
 			catch (Exception ex)
 			{

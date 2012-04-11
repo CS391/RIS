@@ -58,7 +58,7 @@
 		String sql1 = "select record_id, patient_name, diagnosis, description, test_date,";
 		String sql2 = " score(1), score(2), score(3)";
 		String sql3 = " from radiology_record";
-		String sql4 = " where contains(patient_name, '%" + terms[0] + "%', 1) > 0 or" +
+		String sql4 = " where (contains(patient_name, '%" + terms[0] + "%', 1) > 0 or" +
 			" contains(diagnosis, '%" + terms[0] + "%', 2) > 0 or" +
 			" contains(description, '%" + terms[0] + "%', 3) > 0";
 		for (int i = 1; i < terms.length; i++)
@@ -74,14 +74,13 @@
 			" contains(diagnosis, '%" + terms[i] + "%', " + Integer.toString (secon) + ") > 0 or" +
 			" contains(description, '%" + terms[i] + "%', " + Integer.toString (third) + ") > 0";
 		}
-		String sql = sql1 + sql2 + sql3 + sql4;
+		String sql = sql1 + sql2 + sql3 + sql4 + ")";
 		if (className.equals ("p"))
 			sql += " and patient_name='" + user + "'";
 		else if (className.equals ("d"))
 			sql += " and doctor_name='" + user + "'";
 		else if (className.equals ("r"))
 			sql += " and radiologist_name='" + user + "'";
-
 		try
 		{
 			stmt = conn.createStatement ();

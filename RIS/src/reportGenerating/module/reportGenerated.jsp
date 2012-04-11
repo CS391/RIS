@@ -20,7 +20,7 @@
 	{
 	Statement stmt = null;
 	ResultSet rset = null;
-    
+
     String selectedDiagnosis = request.getParameter("DIAGNOSIS").trim();
     String selectedStartDate = request.getParameter("STARTDATE").trim();
     String selectedEndDate   = request.getParameter("ENDDATE").trim();
@@ -31,7 +31,7 @@
                           "WHERE r.diagnosis = \'"+selectedDiagnosis+"\' " +
                           "AND r.prescribing_date BETWEEN \'"+selectedStartDate+"\' AND \'"+selectedEndDate+"\' " +
                           "AND p.first_name = r.patient_name";
-  
+
  	 try{
         stmt = conn.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,

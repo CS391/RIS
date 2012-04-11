@@ -18,11 +18,15 @@
 	    query = "select thumbnail from pacs_images where image_id=" + picid;
 
 	Connection conn = null;
+	Statement stmt = null;
 	try 
 	{
 	    conn = connect.connect.dbConnect ();
-	    Statement stmt = conn.createStatement ();
+	    out.println ("Hey");
+	    stmt = conn.createStatement ();
+	    out.println ("Hey1");
 	    ResultSet rset = stmt.executeQuery (query);
+	    out.println ("Hey2");
 
 	    if (rset.next ()) 
 	    {
@@ -43,6 +47,15 @@
 	    }
 	} 
 	catch (Exception ex) 
+	{
+		out.println ("<hr>" + ex.getMessage () + "<hr>");
+	}
+	
+	try
+	{
+		conn.close();
+	}
+	catch (Exception ex)
 	{
 		out.println ("<hr>" + ex.getMessage () + "<hr>");
 	}
